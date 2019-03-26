@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">HackernewsApp</string>
+    <string name="news">News</string>
+    <string name="users">Users</string>
+    <string name="ask">Ask</string>
+    <string name="jobs">Jobs</string>
+</resources>

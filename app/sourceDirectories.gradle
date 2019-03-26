@@ -1,0 +1,24 @@
+import groovy.transform.Field
+
+@Field static def layout_names = ['activities', 'fragments', 'recycler_items', 'dialogs','includes']
+
+ext.getResources = { String dimensionName ->
+    def directories = new ArrayList<>()
+
+    def res_path = "src/$dimensionName/res"
+    directories.add(res_path)
+
+    def layout_path = "app/$res_path/layout"
+    directories.add(layout_path)
+
+    layout_names.each { layout_name ->
+        def layouts = new File("$layout_path/$layout_name")
+        if (layouts.exists()) {
+            layouts.eachDir {
+                directories.add(it.canonicalPath)
+            }
+        }
+    }
+
+    return directories
+}

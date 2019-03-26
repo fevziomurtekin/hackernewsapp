@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="@android:color/white"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomappbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:theme="@style/NavButtonPadding"
+            app:fabAlignmentMode="end"
+            app:hideOnScroll="true"
+            app:navigationIcon="@drawable/ic_news"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:backgroundTint="@android:color/holo_orange_dark"/>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:src="@drawable/ic_search"
+        app:fabSize="normal"
+        app:layout_anchor="@id/bottomappbar"
+    />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
