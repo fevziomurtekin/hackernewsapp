@@ -3,7 +3,7 @@ package com.fevziomurtekin.com.data.room
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.fevziomurtekin.com.data.model.Item
+import com.fevziomurtekin.com.data.model.ItemModel
 
 @Dao
 interface ItemDao{

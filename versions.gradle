@@ -47,4 +47,7 @@ ext{
     //Android Arcitecture
     androidArchitectureVersion = "1.1.0"
 
+    //Anko
+    anko_version='0.10.4'
+
 }

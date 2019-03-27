@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
  */
 
 object Url{
-    const val BASE_URL=" https://hacker-news.firebaseio.com/"
+    const val BASE_URL="https://hacker-news.firebaseio.com/"
 }
 
 val remoteModule = applicationContext {

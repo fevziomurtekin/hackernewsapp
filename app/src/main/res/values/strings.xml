@@ -4,4 +4,6 @@
     <string name="users">Users</string>
     <string name="ask">Ask</string>
     <string name="jobs">Jobs</string>
+    <string name="retry">Retry</string>
+    <string name="loading_error">An unexpected error was encountered. Please try again.</string>
 </resources>
