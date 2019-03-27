@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/main_layout"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -27,14 +27,14 @@
                 app:hideOnScroll="true"
                 app:navigationIcon="@drawable/ic_news"
                 app:layout_scrollFlags="scroll|enterAlways"
-                android:backgroundTint="@android:color/holo_orange_dark"/>
+                android:backgroundTint="@color/orange"/>
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/holo_orange_dark"
+                android:backgroundTint="@color/orange"
                 android:src="@drawable/ic_search"
                 app:fabSize="normal"
                 app:layout_anchor="@id/bottomappbar"
@@ -48,7 +48,11 @@
             android:id="@+id/splashscreen"
             android:src="@drawable/launch"
             android:scaleType="fitCenter"
-            android:visibility="gone"
+            android:visibility="visible"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
     />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

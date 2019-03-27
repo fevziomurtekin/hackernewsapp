@@ -1,7 +1,6 @@
 package com.fevziomurtekin.di
 
 import com.fevziomurtekin.com.data.network.RetroInterface
-import com.fevziomurtekin.di.Url.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module.applicationContext
@@ -14,9 +13,7 @@ import java.util.concurrent.TimeUnit
  * Remote Web Service in Retrofit.
  */
 
-object Url{
-    const val BASE_URL="https://hacker-news.firebaseio.com/"
-}
+const val BASE_URL="https://hacker-news.firebaseio.com/v0/"
 
 val remoteModule = applicationContext {
 
@@ -24,7 +21,7 @@ val remoteModule = applicationContext {
     bean { createOkHttpClient() }
 
     // fill property.
-    bean { createWebService<RetroInterface>(get(),getProperty(BASE_URL)) }
+    bean { createWebService<RetroInterface>(get(), BASE_URL) }
 
 }
 
