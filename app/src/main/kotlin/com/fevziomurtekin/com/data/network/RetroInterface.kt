@@ -1,9 +1,10 @@
 package com.fevziomurtekin.com.data.network
 
-import com.fevziomurtekin.com.data.model.Item
+import com.fevziomurtekin.com.data.model.ItemModel
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Url
 
 interface RetroInterface{
 
@@ -23,9 +24,9 @@ interface RetroInterface{
     @Headers("Content-type: application/json")
     fun jobStories():Deferred<MutableList<Int>>
 
-    @GET("/vo/item/")
+    @GET
     @Headers("Content-type: application/json")
-    fun itemDetails():Deferred<Item>
+    fun itemDetails(@Url url:String):Deferred<ItemModel>
 
 
 }

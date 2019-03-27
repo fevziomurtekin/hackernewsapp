@@ -1,12 +1,8 @@
-package com.fevziomurtekin.com.data.room
+package com.fevziomurtekin.com.data.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.fevziomurtekin.com.data.model.ItemModel
+import com.fevziomurtekin.com.data.room.ItemEntity
 
-@Entity(tableName = "item")
-data class ItemEntity(
-    @PrimaryKey
+data class ItemModel(
     val id:Int,
     val by:String,
     val descendants:Int,
@@ -24,7 +20,7 @@ data class ItemEntity(
     val url:String
 ){
     companion object {
-        fun from(item:ItemModel)=ItemEntity(
+        fun from(item: ItemEntity)=ItemModel(
             item.id,
             item.by,
             item.descendants,

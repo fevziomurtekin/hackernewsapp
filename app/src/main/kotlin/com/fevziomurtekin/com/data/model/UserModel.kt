@@ -1,6 +1,6 @@
 package com.fevziomurtekin.com.data.model
 
-data class User(
+data class UserModel(
     val about: String,
     val created: Int,
     val delay: Int,

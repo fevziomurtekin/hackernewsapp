@@ -2,7 +2,7 @@ package com.fevziomurtekin.com.data.room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.fevziomurtekin.com.data.model.User
+import com.fevziomurtekin.com.data.model.UserModel
 
 @Entity(tableName = "user")
 data class UserEntity(
@@ -14,7 +14,7 @@ data class UserEntity(
     val submitted:List<Int>
 ){
     companion object {
-        fun from(user: User)=UserEntity(
+        fun from(user: UserModel)=UserEntity(
             user.id,
             user.about,
             user.created,
