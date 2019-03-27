@@ -11,6 +11,7 @@ data class UserEntity(
     val about:String,
     val created:Int,
     val delay:Int,
+    val karma:Int,
     val submitted:List<Int>
 ){
     companion object {
@@ -19,6 +20,7 @@ data class UserEntity(
             user.about,
             user.created,
             user.delay,
+            user.karma,
             user.submitted
         )
     }

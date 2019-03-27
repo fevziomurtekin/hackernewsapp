@@ -3,25 +3,16 @@ package com.fevziomurtekin.com.data.room
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.fevziomurtekin.com.data.model.User
+import com.fevziomurtekin.com.data.model.UserModel
 
 @Dao
 interface UserDao{
 
     /**
-     * Save all User datas.
+     * Save all User data.
      **/
     @Insert
-    fun saveAll(entities:MutableList<UserEntity>)
-
-
-    /**
-     * Find UserEntity by username
-     * @return MutableList<UserEntitiy>
-     * */
-    @Query("SELECT * FROM user WHERE about LIKE :text")
-    fun findUsers(text:String):MutableList<UserEntity>
-
+    fun saveUser(entities:UserEntity)
 
     /**
      * Find UserEntity by id

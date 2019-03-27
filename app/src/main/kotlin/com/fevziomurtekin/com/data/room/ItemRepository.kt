@@ -24,7 +24,7 @@ interface ItemRepository{
 /**
  * Item Repository
  * Make use of RetroInterface & add some cache.*/
-class ItemRepositoryImp(
+class ItemRepositoryImpl(
     private val retroInterface:RetroInterface,
     private val itemDao: ItemDao
 ):ItemRepository
@@ -63,6 +63,20 @@ class ItemRepositoryImp(
             }
         }
 
+        GlobalScope.async {
+            /**
+             * itemList to itemEntity saveAll dao
+             * */
+            val entityList:MutableList<ItemEntity> = mutableListOf()
+
+            itemList.map {
+                val entity = ItemEntity
+                entityList.add(ItemEntity.from(it))
+            }
+
+            itemDao.saveAll(entityList)
+        }
+
         return@async itemList
     }
 
@@ -89,6 +103,20 @@ class ItemRepositoryImp(
                 val item = retroInterface.itemDetails(url).await()
                 itemList.add(item)
             }
+        }
+
+        GlobalScope.async {
+            /**
+             * itemList to itemEntity saveAll dao
+             * */
+            val entityList:MutableList<ItemEntity> = mutableListOf()
+
+            itemList.map {
+                val entity = ItemEntity
+                entityList.add(ItemEntity.from(it))
+            }
+
+            itemDao.saveAll(entityList)
         }
 
         return@async itemList
@@ -119,6 +147,20 @@ class ItemRepositoryImp(
             }
         }
 
+        GlobalScope.async {
+            /**
+             * itemList to itemEntity saveAll dao
+             * */
+            val entityList:MutableList<ItemEntity> = mutableListOf()
+
+            itemList.map {
+                val entity = ItemEntity
+                entityList.add(ItemEntity.from(it))
+            }
+
+            itemDao.saveAll(entityList)
+        }
+
         return@async itemList
     }
 
@@ -145,6 +187,20 @@ class ItemRepositoryImp(
                 val item = retroInterface.itemDetails(url).await()
                 itemList.add(item)
             }
+        }
+
+        GlobalScope.async {
+            /**
+             * itemList to itemEntity saveAll dao
+             * */
+            val entityList:MutableList<ItemEntity> = mutableListOf()
+
+            itemList.map {
+                val entity = ItemEntity
+                entityList.add(ItemEntity.from(it))
+            }
+
+            itemDao.saveAll(entityList)
         }
 
         return@async itemList
