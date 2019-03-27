@@ -54,8 +54,10 @@ dependencies {
     implementation "androidx.vectordrawable:vectordrawable:$vector_drawable_version"
     implementation "com.google.android.material:material:$material_version"
 
-    /*mvvm*/
-    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:$androidArchitectureVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$androidArchitectureVersion"
+    testImplementation "android.arch.core:core-testing:$androidArchitectureVersion"
 
     /*Recyclerview.*/
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"

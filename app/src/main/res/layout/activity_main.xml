@@ -41,4 +41,13 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/splashscreen"
+            android:src="@drawable/launch"
+            android:scaleType="fitCenter"
+            android:visibility="gone"
+    />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
