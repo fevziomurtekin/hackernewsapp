@@ -32,9 +32,10 @@ class MainViewModel(
         launch {
             try {
                 retroInterface.newStories().await()
+
                 mEvents.value = SuccessEvent
             }catch (e:Throwable){
-                mEvents.value = FailedEvent(e)
+                    mEvents.value = FailedEvent(Throwable())
             }
         }
     }

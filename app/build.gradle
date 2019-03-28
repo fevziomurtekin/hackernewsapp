@@ -73,7 +73,7 @@ dependencies {
     /*Coroutines*/
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_android_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_android_version"
-    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:$coroutines_ext_adapter_version"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$coroutines_ext_adapter_version"
 
 
     /*Retrofit*/

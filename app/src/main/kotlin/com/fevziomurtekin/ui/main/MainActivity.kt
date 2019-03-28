@@ -26,12 +26,14 @@ class MainActivity : AppCompatActivity() {
         viewModel.events.observe(this, Observer {
             it?.let {
                 when(it){
-                    LoadingEvent -> viewModel.showSplash(R.id.splashscreen as ImageView)
-                    SuccessEvent -> viewModel.hideSplash(R.id.splashscreen as ImageView)
+                    LoadingEvent -> viewModel.showSplash(splashscreen as ImageView)
+                    SuccessEvent -> viewModel.hideSplash(splashscreen as ImageView)
                     else         -> showError()
                 }
             }
         })
+
+        viewModel.getNews()
     }
 
     fun showError(){

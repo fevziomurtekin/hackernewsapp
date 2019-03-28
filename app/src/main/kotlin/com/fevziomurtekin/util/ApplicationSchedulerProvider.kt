@@ -5,5 +5,5 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 
 class ApplicationSchedulerProvider : SchedulerProvider {
-    override fun ui() = Dispatchers.IO
+    override fun ui() = Dispatchers.Main
 }
