@@ -27,6 +27,8 @@ val appModule = applicationContext {
     // provider to Room database.
     bean {
         Room.databaseBuilder(androidApplication(),Database::class.java,"hackernews-db")
+            .allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
             .build()
     }
 

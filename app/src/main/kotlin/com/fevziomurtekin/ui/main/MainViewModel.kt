@@ -19,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.lang.Exception
 import java.util.*
 
@@ -29,8 +30,7 @@ class MainViewModel(
 
     private val mEvents = SingleLiveEvent<Event>()
     private val idList:MutableList<Int>?= mutableListOf()
-    private var items= mutableListOf<ItemModel>()
-
+    private var items : MutableList<ItemModel> = mutableListOf()
     val events : LiveData<Event>
         get() = mEvents
 
@@ -44,6 +44,7 @@ class MainViewModel(
                 items = itemRepository.getItems(0, idList!!)!!.await()
                 mEvents.value = SuccessEvent
             } catch (e: Throwable) {
+                Timber.e(e)
                 mEvents.value = FailedEvent(Throwable())
             }
         }

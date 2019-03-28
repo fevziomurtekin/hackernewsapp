@@ -13,7 +13,7 @@ interface ItemDao{
      * Save all items
      * */
     @Insert
-    fun saveAll(entities:MutableList<ItemEntity>)
+    fun saveAll(entities:MutableList<ItemEntity>?)
 
     /**
      * Find ItemEntity for text

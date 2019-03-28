@@ -3,6 +3,7 @@ package com.fevziomurtekin.com.data.room
 import com.fevziomurtekin.com.data.model.ItemModel
 import com.fevziomurtekin.com.data.network.RetroInterface
 import kotlinx.coroutines.*
+import timber.log.Timber
 
 interface ItemRepository{
 
@@ -67,9 +68,12 @@ class ItemRepositoryImpl(
             }
             /**
              * itemList to itemEntity saveAll dao
-             * */
+             *
+             */
 
-            itemDao.saveAll(entityList)
+            Timber.d("itemlist : ${itemList}")
+
+            async { itemDao.saveAll(entityList) }
         }
 
         return@async itemList
@@ -86,6 +90,8 @@ class ItemRepositoryImpl(
         }else{
             idList
         }
+
+
 
         val itemList:MutableList<ItemModel> = mutableListOf()
 

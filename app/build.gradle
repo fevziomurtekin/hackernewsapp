@@ -105,6 +105,9 @@ dependencies {
     testImplementation "org.koin:koin-test:$koin_version"
     androidTestImplementation "org.koin:koin-test:$koin_version"
 
+    /*Eventbus*/
+    implementation "org.greenrobot:eventbus:$eventbus_version"
+
 }
 kapt {
     generateStubs = true

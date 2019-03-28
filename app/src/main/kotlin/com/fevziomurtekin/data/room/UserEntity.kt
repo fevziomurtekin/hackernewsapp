@@ -12,7 +12,7 @@ data class UserEntity(
     val created:Int,
     val delay:Int,
     val karma:Int,
-    val submitted:List<Int>
+    val submitted:List<Int>?=null
 ){
     companion object {
         fun from(user: UserModel)=UserEntity(

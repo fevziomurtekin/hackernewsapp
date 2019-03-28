@@ -8,7 +8,7 @@ data class UserModel(
     val delay: Int,
     val id: String,
     val karma: Int,
-    val submitted: List<Int>
+    val submitted: List<Int>?=null
 ){
     companion object {
         fun from(userEntity: UserEntity) = UserModel(

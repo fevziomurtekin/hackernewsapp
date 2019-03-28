@@ -50,4 +50,7 @@ ext{
     //Anko
     anko_version='0.10.4'
 
+    //Eventbus
+    eventbus_version='3.1.1'
+
 }
