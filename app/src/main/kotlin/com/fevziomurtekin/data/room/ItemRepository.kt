@@ -38,6 +38,7 @@ class ItemRepositoryImpl(
         }
     }
 
+    @Synchronized
     private fun getNews(idList: MutableList<Int>) : Deferred<MutableList<ItemModel>> = GlobalScope.async {
 
         /**
@@ -51,28 +52,22 @@ class ItemRepositoryImpl(
         }
 
         val itemList:MutableList<ItemModel> = mutableListOf()
+        val entityList:MutableList<ItemEntity> = mutableListOf()
 
-        GlobalScope.async {
-            list.map {
+        launch {
+            list.take(20).map {
                 /**
                  * fetching all data then this get details this ids
                  * @return MutableList<Item>*/
                 val url = "https://hacker-news.firebaseio.com/v0/item/$it.json?print=pretty"
                 val item = retroInterface.itemDetails(url).await()
+                val entity = ItemEntity
+                entityList.add(ItemEntity.from(item))
                 itemList.add(item)
             }
-        }
-
-        GlobalScope.async {
             /**
              * itemList to itemEntity saveAll dao
              * */
-            val entityList:MutableList<ItemEntity> = mutableListOf()
-
-            itemList.map {
-                val entity = ItemEntity
-                entityList.add(ItemEntity.from(it))
-            }
 
             itemDao.saveAll(entityList)
         }

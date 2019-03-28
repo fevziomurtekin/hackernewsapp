@@ -2,8 +2,7 @@ package com.fevziomurtekin.di
 
 import androidx.room.Room
 import com.fevziomurtekin.com.data.network.RetroInterface
-import com.fevziomurtekin.com.data.room.Database
-import com.fevziomurtekin.com.data.room.ItemRepositoryImpl
+import com.fevziomurtekin.com.data.room.*
 import com.fevziomurtekin.ui.main.MainViewModel
 import com.fevziomurtekin.util.ApplicationSchedulerProvider
 import com.fevziomurtekin.util.SchedulerProvider
@@ -20,8 +19,10 @@ val appModule = applicationContext {
 
     viewModel { MainViewModel(get(),get()) }
 
-    // Retrofit Interface providers.
-    bean { ItemRepositoryImpl(get(),get()) as RetroInterface }
+    // ItemRepository providers.
+    bean { ItemRepositoryImpl(get(),get()) as ItemRepository }
+
+    bean { UserRepositoryImpl(get(),get()) as UserRepository }
 
     // provider to Room database.
     bean {
