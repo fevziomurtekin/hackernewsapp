@@ -5,10 +5,14 @@
         android:id="@+id/main_layout"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <FrameLayout
+    <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/main_frame"
+            android:id="@+id/recyclerview"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
     />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -48,7 +52,7 @@
             android:id="@+id/splashscreen"
             android:src="@drawable/launch"
             android:scaleType="fitXY"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
