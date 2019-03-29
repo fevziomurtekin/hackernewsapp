@@ -17,8 +17,19 @@ class Converters{
     }
 
     @TypeConverter
-    fun intListToString(list: List<Int>) = Gson().toJson(list)
+    fun intListToString(list: List<Int>) :String {
+        if(list.isNullOrEmpty())
+            return ""
+        else
+           return Gson().toJson(list)
+    }
 
     @TypeConverter
-    fun stringTointList(text:String) = Gson().fromJson(text,Array<Int>::class.java).toMutableList()
+    fun stringTointList(text:String): MutableList<Int> {
+        if(text.isNullOrEmpty())
+            return mutableListOf<Int>()
+        else
+            return Gson().fromJson(text,Array<Int>::class.java).toMutableList()
+    }
+
 }

@@ -2,6 +2,7 @@ package com.fevziomurtekin.com.data.room
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.fevziomurtekin.com.data.model.UserModel
 
@@ -11,7 +12,7 @@ interface UserDao{
     /**
      * Save all User data.
      **/
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveUser(entities:UserEntity)
 
     /**

@@ -3,21 +3,21 @@ package com.fevziomurtekin.com.data.model
 import com.fevziomurtekin.com.data.room.ItemEntity
 
 data class ItemModel(
-    val id:Int?,
-    val by:String?,
-    val descendants:Int?,
-    val deleted:Boolean?,
-    val dead:Boolean?,
-    val kids:MutableList<Int>?=null,
-    val score:Int?,
-    val time:Long?,
-    val text:String?,
-    val title:String?,
-    val type:String?,
-    val part:MutableList<Int>?=null,
-    val parent:MutableList<Int>?=null,
-    val poll:Int?,
-    val url:String?
+    var id:Int?,
+    var by:String?,
+    var descendants:Int?,
+    var deleted:Boolean?,
+    var dead:Boolean?,
+    var kids:MutableList<Int>?=null,
+    var score:Int?,
+    var time:Long?,
+    var text:String?,
+    var title:String?,
+    var type:String?,
+    var part:MutableList<Int>?=null,
+    var parent:MutableList<Int>?=null,
+    var poll:Int?,
+    var url:String?
 ){
     companion object {
         fun from(item: ItemEntity)=ItemModel(
@@ -37,5 +37,69 @@ data class ItemModel(
             item.poll,
             item.url
         )
+
+        fun fromDefault(result: ItemModel): ItemModel {
+            if (result.id == null) {
+                result.id=0
+            }
+
+            if (result.by == null) {
+                result.by=""
+            }
+
+            if (result.descendants == null) {
+                result.descendants=0
+            }
+
+            if (result.dead == null) {
+                result.dead=false
+            }
+
+            if (result.deleted == null) {
+                result.deleted = false
+            }
+
+            if (result.kids == null) {
+                result.kids = mutableListOf()
+            }
+
+            if (result.score == null) {
+                result.score = 0
+            }
+
+            if (result.time == null) {
+                result.time = 0L
+            }
+
+            if (result.text == null) {
+                result.text = ""
+            }
+
+            if (result.title == null) {
+                result.title = ""
+            }
+
+            if (result.type == null) {
+                result.type = ""
+            }
+
+            if (result.part == null) {
+                result.part = mutableListOf()
+            }
+
+            if (result.parent == null) {
+                result.parent= mutableListOf()
+            }
+
+            if (result.poll == null) {
+                result.poll=0
+            }
+
+            if (result.url == null) {
+                result.url=""
+            }
+
+            return  result
+        }
     }
 }

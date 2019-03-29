@@ -30,7 +30,7 @@ class MainViewModel(
 
     private val mEvents = SingleLiveEvent<Event>()
     private val idList:MutableList<Int>?= mutableListOf()
-    private var items : MutableList<ItemModel> = mutableListOf()
+    private var items : MutableList<ItemModel>? = mutableListOf()
     val events : LiveData<Event>
         get() = mEvents
 
@@ -41,10 +41,11 @@ class MainViewModel(
         mEvents.value = LoadingEvent
         launch {
             try {
-                items = itemRepository.getItems(0, idList!!)!!.await()
+                items = itemRepository.getItems(0, idList!!).await()
+                Timber.d(items.toString())
                 mEvents.value = SuccessEvent
             } catch (e: Throwable) {
-                Timber.e(e)
+                Timber.d(e)
                 mEvents.value = FailedEvent(Throwable())
             }
         }

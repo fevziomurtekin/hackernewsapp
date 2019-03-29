@@ -3,7 +3,9 @@ package com.fevziomurtekin.com.data.room
 import com.fevziomurtekin.com.data.model.ItemModel
 import com.fevziomurtekin.com.data.network.RetroInterface
 import kotlinx.coroutines.*
+import org.jetbrains.anko.custom.asyncResult
 import timber.log.Timber
+import java.lang.Exception
 
 interface ItemRepository{
 
@@ -11,7 +13,7 @@ interface ItemRepository{
      * Get items from given id list
      * @return MutableList<Item>>
      **/
-    fun getItems(mood:Int,idList:MutableList<Int>):Deferred<MutableList<ItemModel>>?
+    fun getItems(mood:Int,idList:MutableList<Int>):Deferred<MutableList<ItemModel>>
 
 
     /**
@@ -30,7 +32,7 @@ class ItemRepositoryImpl(
     private val itemDao: ItemDao
 ):ItemRepository
 {
-    override fun getItems(mood: Int,idList: MutableList<Int>): Deferred<MutableList<ItemModel>>? = GlobalScope.async {
+    override fun getItems(mood: Int,idList: MutableList<Int>): Deferred<MutableList<ItemModel>> = GlobalScope.async {
         when(mood){
             0 -> return@async getNews(idList).await()
             1 -> return@async getJobs(idList).await()
@@ -40,7 +42,7 @@ class ItemRepositoryImpl(
     }
 
     @Synchronized
-    private fun getNews(idList: MutableList<Int>) : Deferred<MutableList<ItemModel>> = GlobalScope.async {
+    suspend private fun getNews(idList: MutableList<Int>) : Deferred<MutableList<ItemModel>> = GlobalScope.async {
 
         /**
          * idList if equal null fetch data in newStories api, not equal idList
@@ -55,28 +57,27 @@ class ItemRepositoryImpl(
         val itemList:MutableList<ItemModel> = mutableListOf()
         val entityList:MutableList<ItemEntity> = mutableListOf()
 
-        launch {
-            list.take(20).map {
-                /**
-                 * fetching all data then this get details this ids
-                 * @return MutableList<Item>*/
-                val url = "https://hacker-news.firebaseio.com/v0/item/$it.json?print=pretty"
-                val item = retroInterface.itemDetails(url).await()
-                val entity = ItemEntity
-                entityList.add(ItemEntity.from(item))
-                itemList.add(item)
-            }
+        list.take(10).map {
             /**
-             * itemList to itemEntity saveAll dao
-             *
-             */
+             * fetching all data then this get details this ids
+             * @return MutableList<Item>*/
+            val url = "https://hacker-news.firebaseio.com/v0/item/$it.json?print=pretty"
+            val result = retroInterface.itemDetails(url).await()
+            val item = ItemModel.fromDefault(result)
+            val entity = ItemEntity
+            entityList.add(ItemEntity.from(item))
 
-            Timber.d("itemlist : ${itemList}")
-
-            async { itemDao.saveAll(entityList) }
+            itemList.add(item)
         }
+        /**
+         * itemList to itemEntity saveAll dao
+         *
+         */
 
-        return@async itemList
+        async { itemDao.saveAll(entityList) }
+
+        Timber.d(itemList.toString())
+        return@async itemList!!
     }
 
     private fun getJobs(idList: MutableList<Int>) : Deferred<MutableList<ItemModel>> = GlobalScope.async {
