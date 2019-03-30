@@ -25,7 +25,7 @@ import org.koin.android.architecture.ext.viewModel
 import timber.log.Timber
 
 
-class MainActivity : AppCompatActivity(), NewsAdapter.OnItemClickListener,FragmentExt{
+class MainActivity : AppCompatActivity(),FragmentExt{
 
     /***
      * @param holderId -> FrameLayout that the fragment will be placed in
@@ -52,23 +52,13 @@ class MainActivity : AppCompatActivity(), NewsAdapter.OnItemClickListener,Fragme
 
     }
 
-    /**
-     * replace new Activity when onClick in News adapter
-     */
-
-    override fun onItemClick(item: ItemModel) {
-        Timber.d("${item.text}")
-    }
-
     //Declare MainViewModel with Koin and allow constructor di.
     private val viewModel by viewModel<MainViewModel> ()
-    private var onItemClick : NewsAdapter.OnItemClickListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottomappbar.replaceMenu(R.menu.bottomappbar_menu)
-        onItemClick = this
         //recyclerview.layoutManager = LinearLayoutManager(applicationContext)
 
 
@@ -115,30 +105,6 @@ class MainActivity : AppCompatActivity(), NewsAdapter.OnItemClickListener,Fragme
                 viewModel.getNews()
             })
             .show()
-    }
-
-
-    /**
-     * Defined and created EventBus.
-     * Fetch Items and Update Recyclerview from usage EventBus.
-     * @return MutableList<ItemModel>
-     */
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEventItems(items : MutableList<ItemModel>){
-        Timber.d("${items.toString()}")
-        //recyclerview.adapter = NewsAdapter(applicationContext,items,onItemClick)
-
-    }
-
-    override fun onStart() {
-        super.onStart()
-        EventBus.getDefault().register(this)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        EventBus.getDefault().unregister(this)
     }
 
 }

@@ -19,4 +19,9 @@
         <item name="android:indeterminateTint">@android:color/white</item>
     </style>
 
+    <style name="MyProgressbar1" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:color">@android:color/white</item>
+        <item name="android:indeterminateTint">@color/orange</item>
+    </style>
+
 </resources>

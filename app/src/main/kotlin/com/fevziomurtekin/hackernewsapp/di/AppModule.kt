@@ -3,6 +3,8 @@ package com.fevziomurtekin.di
 import androidx.room.Room
 import com.fevziomurtekin.hackernewsapp.data.room.*
 import com.fevziomurtekin.hackernewsapp.ui.main.MainViewModel
+import com.fevziomurtekin.hackernewsapp.ui.newdetails.NewsDetailsViewModel
+import com.fevziomurtekin.hackernewsapp.ui.news.NewsViewModel
 import com.fevziomurtekin.hackernewsapp.util.ApplicationSchedulerProvider
 import com.fevziomurtekin.hackernewsapp.util.SchedulerProvider
 import org.koin.android.architecture.ext.viewModel
@@ -17,6 +19,10 @@ val appModule = applicationContext {
 
 
     viewModel { MainViewModel(get(),get()) }
+
+    viewModel { NewsViewModel(get()) }
+
+    viewModel { NewsDetailsViewModel(get()) }
 
     // ItemRepository providers.
     bean { ItemRepositoryImpl(get(),get()) as ItemRepository }

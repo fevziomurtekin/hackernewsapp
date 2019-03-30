@@ -5,6 +5,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/btn_news"
+        android:layout_marginBottom="2.5dp"
         android:background="@android:color/white" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://schemas.android.com/tools ">
 
