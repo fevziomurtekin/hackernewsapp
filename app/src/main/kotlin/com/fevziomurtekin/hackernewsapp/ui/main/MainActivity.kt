@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEventItems(items : MutableList<ItemModel>){
         Timber.d("${items.toString()}")
+        //recyclerview.adapter = NewsAdapter(adapter,)
 
     }
 

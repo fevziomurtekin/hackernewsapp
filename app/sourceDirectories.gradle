@@ -1,8 +1,9 @@
 import groovy.transform.Field
 
-@Field static def layout_names = ['activities', 'fragments', 'recycler_items', 'dialogs','includes']
+@Field static def layout_names = ['activities', 'fragments', 'items', 'dialogs','includes']
 
-ext.getResources = { String dimensionName ->
+ext.getResources = {
+    String dimensionName ->
     def directories = new ArrayList<>()
 
     def res_path = "src/$dimensionName/res"
