@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.fevziomurtekin.hackernewsapp.R
@@ -27,8 +30,12 @@ class NewDetailsFragment: Fragment(){
         super.onActivityCreated(savedInstanceState)
 
         viewModel.loadWebView(webview,
-            Gson().fromJson(arguments!!.getString(IntentArguments.ARG_INTENT_ID),ItemModel::class.java),progressbarw)
+            Gson().fromJson(arguments!!.getString(IntentArguments.ARG_INTENT_ID),ItemModel::class.java))
+
+        webview.webViewClient = MyClient(progressbarw)
     }
+
+
 
 
 
@@ -43,3 +50,19 @@ class NewDetailsFragment: Fragment(){
         }
     }
 }
+
+class MyClient: WebViewClient{
+
+    lateinit var progressBar: ContentLoadingProgressBar
+
+    constructor(progressBar: ContentLoadingProgressBar){
+        this.progressBar = progressBar
+    }
+
+    override fun onPageFinished(view: WebView?, url: String?) {
+        super.onPageFinished(view, url)
+        progressBar.hide()
+    }
+}
+
+

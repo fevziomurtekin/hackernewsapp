@@ -13,7 +13,7 @@ class NewsDetailsViewModel(
     : RxViewModel(schedulerProvider){
 
 
-    fun loadWebView(webView: WebView,item: ItemModel,progressBar: ContentLoadingProgressBar){
+    fun loadWebView(webView: WebView,item: ItemModel){
         val settings = webView.settings
         settings.builtInZoomControls =false
         settings.javaScriptEnabled = true
@@ -23,11 +23,7 @@ class NewsDetailsViewModel(
 
         if(item!=null){
             webView.loadUrl(item.url)
-            progressBar.hide()
-        }else progressBar.hide()
-
-
-
+        }
 
     }
 
