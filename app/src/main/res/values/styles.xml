@@ -14,4 +14,8 @@
         <item name="android:minWidth">10dp</item>
     </style>
 
+    <style name="MyProgressbar" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:color">@android:color/white</item>
+    </style>
+
 </resources>

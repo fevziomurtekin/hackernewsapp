@@ -4,6 +4,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:id="@+id/btn_news"
         android:background="@android:color/white" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://schemas.android.com/tools ">
 
@@ -20,6 +21,7 @@
                 android:layout_weight="0.2"
                 android:fontFamily="@font/medium"
                 android:textSize="14sp"
+                android:text="asdasdasdasdasdasdasd"
                 android:id="@+id/txt_order"
                 android:paddingLeft="2.5dp"
                 android:paddingRight="2.5dp"

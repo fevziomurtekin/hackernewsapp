@@ -4,6 +4,8 @@ import android.animation.ObjectAnimator
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
+import android.widget.RelativeLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LiveData
 import com.fevziomurtekin.hackernewsapp.data.domain.ItemModel
 import com.fevziomurtekin.hackernewsapp.data.room.ItemRepository
@@ -42,10 +44,10 @@ class MainViewModel(
         }
     }
 
-    fun showSplash(imageView: ImageView){ imageView.visibility = View.VISIBLE }
+    fun showSplash(view: ConstraintLayout){ view.visibility = View.VISIBLE }
 
-    fun hideSplash(imageView: ImageView){
-        val animator = ObjectAnimator.ofFloat(imageView,"alpha",1f,0f)
+    fun hideSplash(view: ConstraintLayout){
+        val animator = ObjectAnimator.ofFloat(view,"alpha",1f,0f)
         animator.interpolator = AccelerateInterpolator()
 
         animator.duration = 200

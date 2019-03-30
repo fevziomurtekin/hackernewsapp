@@ -55,7 +55,7 @@ class ItemRepositoryImpl(
         val itemList:MutableList<ItemModel> = mutableListOf()
         val entityList:MutableList<ItemEntity> = mutableListOf()
 
-        list.take(10).map {
+        list.take(50).map {
             /**
              * fetching all data then this get details this ids
              * @return MutableList<Item>*/
