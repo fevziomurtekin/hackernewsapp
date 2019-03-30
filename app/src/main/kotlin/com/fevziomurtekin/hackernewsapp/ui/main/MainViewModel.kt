@@ -1,6 +1,7 @@
 package com.fevziomurtekin.hackernewsapp.ui.main
 
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
@@ -19,6 +20,7 @@ class MainViewModel(
     private val itemRepository: ItemRepository,
     schedulerProvider: SchedulerProvider
 ) : RxViewModel(schedulerProvider){
+
 
     private val mEvents = SingleLiveEvent<Event>()
     private val idList:MutableList<Int>?= mutableListOf()
