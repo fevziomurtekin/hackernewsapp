@@ -1,6 +1,7 @@
 package com.fevziomurtekin.hackernewsapp.ui.adapter
 
 import android.content.Context
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,30 +64,26 @@ class NewsAdapter:
 
         var txt_order: TextView
         var txt_title: TextView
-        var txt_by: TextView
         var txt_details: TextView
         var btn_news: LinearLayout
 
         init {
             txt_order = itemView.findViewById(R.id.txt_order)
-            txt_title = itemView.findViewById(R.id.txt_order)
-            txt_by = itemView.findViewById(R.id.txt_order)
-            txt_details = itemView.findViewById(R.id.txt_order)
+            txt_title = itemView.findViewById(R.id.txt_title)
+            txt_details = itemView.findViewById(R.id.txt_details)
             btn_news = itemView.findViewById(R.id.btn_news)
 
         }
 
         fun bind(item: ItemModel,listener: OnItemClickListener,pos:Int){
-            txt_order.text = "$pos ."
+            txt_order.text = "${pos+1} ."
 
             if(item.title.isNullOrEmpty() && item.text.isNullOrEmpty())
-                txt_title.text = ""
+                txt_title.text = "${Ext.urlToBy(item.url)}"
             else if(!item.title.isNullOrEmpty() && item.text.isNullOrEmpty())
-                txt_title.text = item.title.toString()
+                txt_title.text = Html.fromHtml("${item.title} ${Ext.urlToBy(item.url)}")
             else
-                txt_title.text = item.text.toString()
-
-            txt_by.text = item.url
+                txt_title.text = Html.fromHtml("${item.text} ${Ext.urlToBy(item.url)}")
 
             txt_details.text = "${item.score} points by ${item.by} ${Ext.getHours(item.time)} "
 

@@ -18,12 +18,13 @@
         <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.2"
+                android:layout_weight="0.1"
                 android:fontFamily="@font/medium"
                 android:textSize="14sp"
                 android:text="asdasdasdasdasdasdasd"
                 android:id="@+id/txt_order"
                 android:paddingLeft="2.5dp"
+                android:lines="2"
                 android:paddingRight="2.5dp"
                 android:textColor="@android:color/black"
         />
@@ -31,26 +32,16 @@
         <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.6"
+                android:layout_weight="0.9"
                 android:id="@+id/txt_title"
                 android:fontFamily="@font/medium"
                 android:textSize="15sp"
+                android:lines="2"
                 android:paddingLeft="2.5dp"
                 android:paddingRight="2.5dp"
                 android:textColor="@android:color/black"
         />
 
-        <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:id="@+id/txt_by"
-                android:fontFamily="@font/mediumitalic"
-                android:textSize="13sp"
-                android:paddingLeft="2.5dp"
-                android:paddingRight="2.5dp"
-                android:textColor="@android:color/black"
-        />
 
     </LinearLayout>
 
@@ -65,6 +56,7 @@
                 android:layout_weight="0.1"
                 android:fontFamily="@font/medium"
                 android:textSize="14sp"
+                android:lines="1"
                 android:paddingLeft="2.5dp"
                 android:paddingRight="2.5dp"
                 android:textColor="@android:color/black"
@@ -73,15 +65,15 @@
         <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.4"
+                android:layout_weight="0.9"
                 android:id="@+id/txt_details"
                 android:fontFamily="@font/regular"
                 android:textSize="12sp"
                 android:paddingLeft="2.5dp"
                 android:paddingRight="2.5dp"
+                android:lines="1"
                 android:textColor="@android:color/black"
         />
-
 
     </LinearLayout>
 

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/white"
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/main_layout"
         xmlns:android="http://schemas.android.com/apk/res/android">
@@ -11,6 +12,7 @@
             android:layout_height="match_parent"
             android:id="@+id/recyclerview"
             tools:listitem="@layout/news_item"
+            android:paddingBottom="60dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -78,13 +80,15 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent">
-            
+
             <androidx.core.widget.ContentLoadingProgressBar
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
                     android:id="@+id/progressbar"
+                    android:layout_alignTop="@id/txt_loading"
+                    android:layout_alignBottom="@id/txt_loading"
                     android:theme="@style/MyProgressbar"
-                    style="?android:attr/android:progressBarStyleHorizontal"
+                    style="?android:progressBarStyleLarge"
             />
 
             <TextView
@@ -95,6 +99,7 @@
                     android:textColor="@android:color/white"
                     android:layout_toRightOf="@id/progressbar"
                     android:text="@string/getnews"
+                    android:id="@+id/txt_loading"
                     android:fontFamily="@font/bold"
             />
 
