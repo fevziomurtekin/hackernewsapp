@@ -15,10 +15,22 @@ interface ItemRepository{
 
 
     /**
-     * Get item for given id
+     * Get new for given id
      * @return Item
      **/
-    fun getItemById(id:String):Deferred<ItemModel>?
+    fun getItemByNewId(id:String):Deferred<ItemModel>?
+
+    /**
+     * Get job for given id
+     * @return Item
+     **/
+    fun getItemByJobId(id:String):Deferred<ItemModel>?
+
+    /**
+     * Get ask for given id
+     * @return Item
+     **/
+    fun getItemByAskId(id:String):Deferred<ItemModel>?
 
 }
 
@@ -53,7 +65,7 @@ class ItemRepositoryImpl(
         }
 
         val itemList:MutableList<ItemModel> = mutableListOf()
-        val entityList:MutableList<ItemEntity> = mutableListOf()
+        val entityList:MutableList<NewEntity> = mutableListOf()
 
         list.take(30).map {
             /**
@@ -62,8 +74,8 @@ class ItemRepositoryImpl(
             val url = "https://hacker-news.firebaseio.com/v0/item/$it.json?print=pretty"
             val result = retroInterface.itemDetails(url).await()
             val item = ItemModel.fromDefault(result)
-            val entity = ItemEntity
-            entityList.add(ItemEntity.from(item))
+            val entity = NewEntity
+            entityList.add(NewEntity.from(item))
 
             itemList.add(item)
         }
@@ -72,7 +84,7 @@ class ItemRepositoryImpl(
          *
          */
 
-        async { itemDao.saveAll(entityList) }
+        async { itemDao.saveAllNews(entityList) }
 
         //Timber.d(itemList.toString())
         return@async itemList
@@ -92,7 +104,7 @@ class ItemRepositoryImpl(
         }
 
         val itemList:MutableList<ItemModel> = mutableListOf()
-        val entityList:MutableList<ItemEntity> = mutableListOf()
+        val entityList:MutableList<JobEntity> = mutableListOf()
 
         list.take(30).map {
             /**
@@ -101,8 +113,8 @@ class ItemRepositoryImpl(
             val url = "https://hacker-news.firebaseio.com/v0/item/$it.json?print=pretty"
             val result = retroInterface.itemDetails(url).await()
             val item = ItemModel.fromDefault(result)
-            val entity = ItemEntity
-            entityList.add(ItemEntity.from(item))
+            val entity = JobEntity
+            entityList.add(JobEntity.from(item))
 
             itemList.add(item)
         }
@@ -111,7 +123,7 @@ class ItemRepositoryImpl(
          *
          */
 
-        async { itemDao.saveAll(entityList) }
+        async { itemDao.saveAllJobs(entityList) }
 
         Timber.d(itemList.toString())
         return@async itemList
@@ -131,7 +143,7 @@ class ItemRepositoryImpl(
         }
 
         val itemList:MutableList<ItemModel> = mutableListOf()
-        val entityList:MutableList<ItemEntity> = mutableListOf()
+        val entityList:MutableList<NewEntity> = mutableListOf()
 
         list.take(30).map {
             /**
@@ -140,8 +152,8 @@ class ItemRepositoryImpl(
             val url = "https://hacker-news.firebaseio.com/v0/item/$it.json?print=pretty"
             val result = retroInterface.itemDetails(url).await()
             val item = ItemModel.fromDefault(result)
-            val entity = ItemEntity
-            entityList.add(ItemEntity.from(item))
+            val entity = NewEntity
+            entityList.add(NewEntity.from(item))
 
             itemList.add(item)
         }
@@ -150,7 +162,7 @@ class ItemRepositoryImpl(
          *
          */
 
-        async { itemDao.saveAll(entityList) }
+        async { itemDao.saveAllNews(entityList) }
 
         Timber.d(itemList.toString())
         return@async itemList
@@ -171,7 +183,7 @@ class ItemRepositoryImpl(
         }
 
         val itemList:MutableList<ItemModel> = mutableListOf()
-        val entityList:MutableList<ItemEntity> = mutableListOf()
+        val entityList:MutableList<AskEntity> = mutableListOf()
 
         list.take(30).map {
             /**
@@ -180,8 +192,8 @@ class ItemRepositoryImpl(
             val url = "https://hacker-news.firebaseio.com/v0/item/$it.json?print=pretty"
             val result = retroInterface.itemDetails(url).await()
             val item = ItemModel.fromDefault(result)
-            val entity = ItemEntity
-            entityList.add(ItemEntity.from(item))
+            val entity = AskEntity
+            entityList.add(AskEntity.from(item))
 
             itemList.add(item)
         }
@@ -190,16 +202,36 @@ class ItemRepositoryImpl(
          *
          */
 
-        async { itemDao.saveAll(entityList) }
+        async { itemDao.saveAllAsk(entityList) }
 
         Timber.d(itemList.toString())
         return@async itemList
     }
 
 
-
-    override fun getItemById(id: String): Deferred<ItemModel>? = GlobalScope.async {
-        ItemModel.from(itemDao.findAllById(id))
+    /**
+     * @param id
+     * return ItemModel for news.
+     */
+    override fun getItemByNewId(id: String): Deferred<ItemModel>? = GlobalScope.async {
+        ItemModel.fromNews(itemDao.findAllByNewId(id))
     }
+
+    /**
+     * @param id
+     * return ItemModel for jobs.
+     */
+    override fun getItemByJobId(id: String): Deferred<ItemModel>? = GlobalScope.async {
+        ItemModel.fromJobs(itemDao.findAllByJobId(id))
+    }
+
+    /**
+     * @param id
+     * return ItemModel for ask.
+     */
+    override fun getItemByAskId(id: String): Deferred<ItemModel>? = GlobalScope.async {
+        ItemModel.fromAsk(itemDao.findAllByAskId(id))
+    }
+
 
 }

@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [ItemEntity::class,UserEntity::class], version = 3)
+@Database(entities = [NewEntity::class,JobEntity::class,AskEntity::class,UserEntity::class], version = 4)
 @TypeConverters(Converters::class)
 abstract class Database: RoomDatabase(){
 

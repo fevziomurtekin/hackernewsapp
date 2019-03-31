@@ -1,6 +1,8 @@
 package com.fevziomurtekin.hackernewsapp.data.domain
 
-import com.fevziomurtekin.hackernewsapp.data.room.ItemEntity
+import com.fevziomurtekin.hackernewsapp.data.room.AskEntity
+import com.fevziomurtekin.hackernewsapp.data.room.JobEntity
+import com.fevziomurtekin.hackernewsapp.data.room.NewEntity
 
 data class ItemModel(
     var id:Int?,
@@ -20,7 +22,43 @@ data class ItemModel(
     var url:String?
 ){
     companion object {
-        fun from(item: ItemEntity)= ItemModel(
+        fun fromNews(item: NewEntity)= ItemModel(
+            item.id,
+            item.by,
+            item.descendants,
+            item.deleted,
+            item.dead,
+            item.kids,
+            item.score,
+            item.time,
+            item.text,
+            item.title,
+            item.type,
+            item.part,
+            item.parent,
+            item.poll,
+            item.url
+        )
+
+        fun fromJobs(item: JobEntity)= ItemModel(
+            item.id,
+            item.by,
+            item.descendants,
+            item.deleted,
+            item.dead,
+            item.kids,
+            item.score,
+            item.time,
+            item.text,
+            item.title,
+            item.type,
+            item.part,
+            item.parent,
+            item.poll,
+            item.url
+        )
+
+        fun fromAsk(item: AskEntity)= ItemModel(
             item.id,
             item.by,
             item.descendants,

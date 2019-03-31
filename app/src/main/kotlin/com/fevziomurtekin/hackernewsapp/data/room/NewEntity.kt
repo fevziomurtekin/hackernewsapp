@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.fevziomurtekin.hackernewsapp.data.domain.ItemModel
 
-@Entity(tableName = "item")
-data class ItemEntity(
+@Entity(tableName = "new")
+data class NewEntity(
     @PrimaryKey
     val id:Int?,
     val by:String?,
@@ -24,7 +24,7 @@ data class ItemEntity(
     val url:String?
 ){
     companion object {
-        fun from(item: ItemModel)=ItemEntity(
+        fun from(item: ItemModel)=NewEntity(
             item.id,
             item.by,
             item.descendants,
