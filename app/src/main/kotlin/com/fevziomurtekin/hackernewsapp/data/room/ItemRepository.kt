@@ -8,10 +8,13 @@ import timber.log.Timber
 interface ItemRepository{
 
     /**
+     * @param mood  -> return news type.
+     * @param idList
+     * @param isReload -> refresh news.
      * Get items from given id list
      * @return MutableList<Item>>
      **/
-    fun getItems(mood:Int,idList:MutableList<Int>):Deferred<MutableList<ItemModel>>
+    fun getItems(mood:Int,idList:MutableList<Int>,isReload:Boolean):Deferred<MutableList<ItemModel>>
 
 
     /**
@@ -42,23 +45,23 @@ class ItemRepositoryImpl(
     private val itemDao: ItemDao
 ):ItemRepository
 {
-    override fun getItems(mood: Int,idList: MutableList<Int>): Deferred<MutableList<ItemModel>> = GlobalScope.async {
+    override fun getItems(mood: Int,idList: MutableList<Int>,isReload: Boolean): Deferred<MutableList<ItemModel>> = GlobalScope.async {
         when(mood){
-            0 -> return@async getNews(idList).await()
-            1 -> return@async getTops(idList).await()
-            2 -> return@async getAsks(idList).await()
-            else -> return@async getJobs(idList).await()
+            0 -> return@async getNews(idList,isReload).await()
+            1 -> return@async getTops(idList,isReload).await()
+            2 -> return@async getAsks(idList,isReload).await()
+            else -> return@async getJobs(idList,isReload).await()
         }
     }
 
     @Synchronized
-    suspend fun getNews(idList: MutableList<Int>) : Deferred<MutableList<ItemModel>> = GlobalScope.async {
+    suspend fun getNews(idList: MutableList<Int>,isReload: Boolean) : Deferred<MutableList<ItemModel>> = GlobalScope.async {
 
         /**
          * if news saved from room getAllNews else fetch network
          */
 
-        if(!itemDao.getAllNews().isNullOrEmpty()){
+        if(!itemDao.getAllNews().isNullOrEmpty() && !isReload){
             val news = mutableListOf<ItemModel>()
             itemDao.getAllNews().forEach {
                 val item = ItemModel.fromNews(it)
@@ -104,13 +107,13 @@ class ItemRepositoryImpl(
     }
 
     @Synchronized
-    suspend fun getJobs(idList: MutableList<Int>) : Deferred<MutableList<ItemModel>> = GlobalScope.async {
+    suspend fun getJobs(idList: MutableList<Int>,isReload: Boolean) : Deferred<MutableList<ItemModel>> = GlobalScope.async {
 
         /**
          * if jobs saved from room getAllNews else fetch network
          */
 
-        if(!itemDao.getAllJobs().isNullOrEmpty()){
+        if(!itemDao.getAllJobs().isNullOrEmpty() && !isReload){
             val jobs = mutableListOf<ItemModel>()
             itemDao.getAllJobs().forEach {
                 val item = ItemModel.fromJobs(it)
@@ -156,7 +159,7 @@ class ItemRepositoryImpl(
     }
 
     @Synchronized
-    suspend fun getTops(idList: MutableList<Int>) : Deferred<MutableList<ItemModel>> = GlobalScope.async {
+    suspend fun getTops(idList: MutableList<Int>,isReload: Boolean) : Deferred<MutableList<ItemModel>> = GlobalScope.async {
 
         /**
          * idList if equal null fetch data in topStories api, not equal idList
@@ -195,13 +198,13 @@ class ItemRepositoryImpl(
     }
 
     @Synchronized
-    suspend fun getAsks(idList: MutableList<Int>) : Deferred<MutableList<ItemModel>> = GlobalScope.async {
+    suspend fun getAsks(idList: MutableList<Int>, isReload: Boolean) : Deferred<MutableList<ItemModel>> = GlobalScope.async {
 
         /**
          * if jobs saved from room getAllNews else fetch network
          */
 
-        if(!itemDao.getAllAsks().isNullOrEmpty()){
+        if(!itemDao.getAllAsks().isNullOrEmpty() && !isReload){
             val asks = mutableListOf<ItemModel>()
             itemDao.getAllAsks().forEach {
                 val item = ItemModel.fromAsk(it)

@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity(),FragmentExt, Toolbar.OnMenuItemClickLis
     }
 
     //Declare MainViewModel with Koin and allow constructor di.
-    private val viewModel by viewModel<MainViewModel> ()
+    val viewModel by viewModel<MainViewModel> ()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity(),FragmentExt, Toolbar.OnMenuItemClickLis
         //recyclerview.layoutManager = LinearLayoutManager(applicationContext)
 
 
-        replaceFragment(false,R.id.framelayout,NewsFragment())
+        replaceFragment(false,R.id.framelayout,NewsFragment.newInstance(0))
 
         viewModel.events.observe(this, Observer {
             it?.let {
@@ -85,15 +85,15 @@ class MainActivity : AppCompatActivity(),FragmentExt, Toolbar.OnMenuItemClickLis
         when(item!!.itemId){
             R.id.appbar_user->{
                 //viewModel.getUser
-                replaceFragment(true,R.id.framelayout,NewsFragment.newInstance())
+                replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(1))
             }
             R.id.appbar_ask->{
-                viewModel.getItems(2)
-                replaceFragment(true,R.id.framelayout,NewsFragment.newInstance())
+                viewModel.getItems(2,false)
+                replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(2))
             }
             R.id.appbar_jobs->{
-                viewModel.getItems(3)
-                replaceFragment(true,R.id.framelayout,NewsFragment.newInstance())
+                viewModel.getItems(3,false)
+                replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(3))
             }
         }
 

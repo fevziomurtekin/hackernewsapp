@@ -36,7 +36,7 @@ class MainViewModel(
         mEvents.value = LoadingEvent
         launch {
             try {
-                items = itemRepository.getItems(0, idList!!).await()
+                items = itemRepository.getItems(0, idList!!,true).await()
                 Timber.d(items.toString())
                 EventBus.getDefault().post(items)
                 mEvents.value = SuccessEvent
@@ -48,7 +48,7 @@ class MainViewModel(
     }
 
     @Synchronized
-    fun getItems(mood:Int){
+    fun getItems(mood:Int,isReload:Boolean){
         /**
          * Usage BottomBar Click
          * @params mood.
@@ -57,10 +57,10 @@ class MainViewModel(
 
         launch {
             val list=when (mood) {
-                0 -> itemRepository.getItems(0, idList!!).await()
-                1 -> itemRepository.getItems(1, idList!!).await()
-                2 -> itemRepository.getItems(2, idList!!).await()
-                else -> itemRepository.getItems(3, idList!!).await()
+                0 -> itemRepository.getItems(0, idList!!,isReload).await()
+                1 -> itemRepository.getItems(1, idList!!,isReload).await()
+                2 -> itemRepository.getItems(2, idList!!,isReload).await()
+                else -> itemRepository.getItems(3, idList!!,isReload).await()
             }
             Timber.d(list.toString())
             EventBus.getDefault().post(list)

@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.fevziomurtekin.hackernewsapp.R
 import com.fevziomurtekin.hackernewsapp.data.domain.ItemModel
 import com.fevziomurtekin.hackernewsapp.ui.adapter.NewsAdapter
 import com.fevziomurtekin.hackernewsapp.ui.main.MainActivity
 import com.fevziomurtekin.hackernewsapp.ui.newdetails.NewDetailsFragment
 import com.fevziomurtekin.hackernewsapp.ui.newdetails.NewsDetailsViewModel
+import com.fevziomurtekin.hackernewsapp.util.IntentArguments
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.naju_fragments.*
@@ -21,8 +23,9 @@ import org.greenrobot.eventbus.ThreadMode
 import org.koin.android.architecture.ext.viewModel
 import timber.log.Timber
 
-class NewsFragment : Fragment(), NewsAdapter.OnItemClickListener{
+class NewsFragment : Fragment(), NewsAdapter.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
+    private var mood:Int = 0
     private var onItemClick : NewsAdapter.OnItemClickListener? = null
     private val viewModel by viewModel<NewsViewModel>()
 
@@ -69,14 +72,28 @@ class NewsFragment : Fragment(), NewsAdapter.OnItemClickListener{
         super.onActivityCreated(savedInstanceState)
         progressbars.show()
         onItemClick = this
+        swipe_refresh.setOnRefreshListener(this)
+        if (arguments!=null) mood = arguments!!.getInt(IntentArguments.ARG_INTENT_ID)
+
+    }
+
+
+    /**
+     * refreshed swipeLayout getNews or getJobs or getAsk from network.
+     * swipeRefreshLayout swipe false.
+     */
+    override fun onRefresh() {
+        (activity as MainActivity).viewModel.getItems(mood,true)
+        swipe_refresh.isRefreshing=false
     }
 
 
 
     companion object {
 
-        fun newInstance() : NewsFragment {
+        fun newInstance(mood:Int) : NewsFragment {
             val args = Bundle()
+            args.putInt(IntentArguments.ARG_INTENT_ID,mood)
             return NewsFragment()
         }
 
