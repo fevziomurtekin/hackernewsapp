@@ -55,78 +55,104 @@ class ItemRepositoryImpl(
     suspend fun getNews(idList: MutableList<Int>) : Deferred<MutableList<ItemModel>> = GlobalScope.async {
 
         /**
-         * idList if equal null fetch data in newStories api, not equal idList
-         * @return MutableList<Int>*/
-
-        val list = if(idList.isEmpty()) {
-            retroInterface.newStories().await()
-        }else{
-            idList
-        }
-
-        val itemList:MutableList<ItemModel> = mutableListOf()
-        val entityList:MutableList<NewEntity> = mutableListOf()
-
-        list.take(30).map {
-            /**
-             * fetching all data then this get details this ids
-             * @return MutableList<Item>*/
-            val url = "https://hacker-news.firebaseio.com/v0/item/$it.json?print=pretty"
-            val result = retroInterface.itemDetails(url).await()
-            val item = ItemModel.fromDefault(result)
-            val entity = NewEntity
-            entityList.add(NewEntity.from(item))
-
-            itemList.add(item)
-        }
-        /**
-         * itemList to itemEntity saveAll dao
-         *
+         * if news saved from room getAllNews else fetch network
          */
 
-        async { itemDao.saveAllNews(entityList) }
+        if(!itemDao.getAllNews().isNullOrEmpty()){
+            val news = mutableListOf<ItemModel>()
+            itemDao.getAllNews().forEach {
+                val item = ItemModel.fromNews(it)
+                news.add(item)
+            }
+            return@async news
+        }else {
 
-        //Timber.d(itemList.toString())
-        return@async itemList
+            /**
+             * idList if equal null fetch data in newStories api, not equal idList
+             * @return MutableList<Int>*/
+            val list = if (idList.isEmpty()) {
+                retroInterface.newStories().await()
+            } else {
+                idList
+            }
+
+            val itemList: MutableList<ItemModel> = mutableListOf()
+            val entityList: MutableList<NewEntity> = mutableListOf()
+
+            list.take(30).map {
+                /**
+                 * fetching all data then this get details this ids
+                 * @return MutableList<Item>*/
+                val url = "https://hacker-news.firebaseio.com/v0/item/$it.json?print=pretty"
+                val result = retroInterface.itemDetails(url).await()
+                val item = ItemModel.fromDefault(result)
+                val entity = NewEntity
+                entityList.add(NewEntity.from(item))
+
+                itemList.add(item)
+            }
+            /**
+             * itemList to itemEntity saveAll dao
+             *
+             */
+
+            async { itemDao.saveAllNews(entityList) }
+
+            //Timber.d(itemList.toString())
+            return@async itemList
+        }
     }
 
     @Synchronized
     suspend fun getJobs(idList: MutableList<Int>) : Deferred<MutableList<ItemModel>> = GlobalScope.async {
 
         /**
-         * idList if equal null fetch data in jobStories api, not equal idList
-         * @return MutableList<Int>*/
-
-        val list = if(idList.isEmpty()) {
-            retroInterface.jobStories().await()
-        }else{
-            idList
-        }
-
-        val itemList:MutableList<ItemModel> = mutableListOf()
-        val entityList:MutableList<JobEntity> = mutableListOf()
-
-        list.take(30).map {
-            /**
-             * fetching all data then this get details this ids
-             * @return MutableList<Item>*/
-            val url = "https://hacker-news.firebaseio.com/v0/item/$it.json?print=pretty"
-            val result = retroInterface.itemDetails(url).await()
-            val item = ItemModel.fromDefault(result)
-            val entity = JobEntity
-            entityList.add(JobEntity.from(item))
-
-            itemList.add(item)
-        }
-        /**
-         * itemList to itemEntity saveAll dao
-         *
+         * if jobs saved from room getAllNews else fetch network
          */
 
-        async { itemDao.saveAllJobs(entityList) }
+        if(!itemDao.getAllJobs().isNullOrEmpty()){
+            val jobs = mutableListOf<ItemModel>()
+            itemDao.getAllJobs().forEach {
+                val item = ItemModel.fromJobs(it)
+                jobs.add(item)
+            }
+            return@async jobs
+        }else {
+            /**
+             * idList if equal null fetch data in jobStories api, not equal idList
+             * @return MutableList<Int>*/
 
-        Timber.d(itemList.toString())
-        return@async itemList
+            val list = if (idList.isEmpty()) {
+                retroInterface.jobStories().await()
+            } else {
+                idList
+            }
+
+            val itemList: MutableList<ItemModel> = mutableListOf()
+            val entityList: MutableList<JobEntity> = mutableListOf()
+
+            list.take(30).map {
+                /**
+                 * fetching all data then this get details this ids
+                 * @return MutableList<Item>*/
+                val url = "https://hacker-news.firebaseio.com/v0/item/$it.json?print=pretty"
+                val result = retroInterface.itemDetails(url).await()
+                val item = ItemModel.fromDefault(result)
+                val entity = JobEntity
+                entityList.add(JobEntity.from(item))
+
+                itemList.add(item)
+            }
+            /**
+             * itemList to itemEntity saveAll dao
+             *
+             */
+
+            async { itemDao.saveAllJobs(entityList) }
+
+            Timber.d(itemList.toString())
+            return@async itemList
+        }
     }
 
     @Synchronized
@@ -171,41 +197,54 @@ class ItemRepositoryImpl(
     @Synchronized
     suspend fun getAsks(idList: MutableList<Int>) : Deferred<MutableList<ItemModel>> = GlobalScope.async {
 
-
         /**
-         * idList if equal null fetch data in askStories api, not equal idList
-         * @return MutableList<Int>*/
-
-        val list = if(idList.isEmpty()) {
-            retroInterface.askStories().await()
-        }else{
-            idList
-        }
-
-        val itemList:MutableList<ItemModel> = mutableListOf()
-        val entityList:MutableList<AskEntity> = mutableListOf()
-
-        list.take(30).map {
-            /**
-             * fetching all data then this get details this ids
-             * @return MutableList<Item>*/
-            val url = "https://hacker-news.firebaseio.com/v0/item/$it.json?print=pretty"
-            val result = retroInterface.itemDetails(url).await()
-            val item = ItemModel.fromDefault(result)
-            val entity = AskEntity
-            entityList.add(AskEntity.from(item))
-
-            itemList.add(item)
-        }
-        /**
-         * itemList to itemEntity saveAll dao
-         *
+         * if jobs saved from room getAllNews else fetch network
          */
 
-        async { itemDao.saveAllAsk(entityList) }
+        if(!itemDao.getAllAsks().isNullOrEmpty()){
+            val asks = mutableListOf<ItemModel>()
+            itemDao.getAllAsks().forEach {
+                val item = ItemModel.fromAsk(it)
+                asks.add(item)
+            }
+            return@async asks
+        }else {
 
-        Timber.d(itemList.toString())
-        return@async itemList
+            /**
+             * idList if equal null fetch data in askStories api, not equal idList
+             * @return MutableList<Int>*/
+
+            val list = if (idList.isEmpty()) {
+                retroInterface.askStories().await()
+            } else {
+                idList
+            }
+
+            val itemList: MutableList<ItemModel> = mutableListOf()
+            val entityList: MutableList<AskEntity> = mutableListOf()
+
+            list.take(30).map {
+                /**
+                 * fetching all data then this get details this ids
+                 * @return MutableList<Item>*/
+                val url = "https://hacker-news.firebaseio.com/v0/item/$it.json?print=pretty"
+                val result = retroInterface.itemDetails(url).await()
+                val item = ItemModel.fromDefault(result)
+                val entity = AskEntity
+                entityList.add(AskEntity.from(item))
+
+                itemList.add(item)
+            }
+            /**
+             * itemList to itemEntity saveAll dao
+             *
+             */
+
+            async { itemDao.saveAllAsk(entityList) }
+
+            Timber.d(itemList.toString())
+            return@async itemList
+        }
     }
 
 

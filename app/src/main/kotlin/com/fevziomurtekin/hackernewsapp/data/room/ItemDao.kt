@@ -10,22 +10,43 @@ import kotlinx.coroutines.Job
 interface ItemDao{
 
     /**
+     * @param MutableList<NewEntity>
      * Save all new items.
      * */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveAllNews(entities:MutableList<NewEntity>?)
 
     /**
+     * @param MutableList<JobEntity>
      * Save all job items.
      * */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveAllJobs(entities:MutableList<JobEntity>?)
 
     /**
+     * @param MutableList<AskEntity>
      * Save all ask items.
      * */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveAllAsk(entities:MutableList<AskEntity>?)
+
+    /**
+     * @return all news MutableList<NewEntity>
+     */
+    @Query("SELECT * FROM new")
+    fun getAllNews():MutableList<NewEntity>
+
+    /**
+     * @return all news MutableList<JobEntity>
+     */
+    @Query("SELECT * FROM job")
+    fun getAllJobs():MutableList<JobEntity>
+
+    /**
+     * @return all news MutableList<AskEntity>
+     */
+    @Query("SELECT * FROM ask")
+    fun getAllAsks():MutableList<AskEntity>
 
     /**
      * Find NewEntity for text
