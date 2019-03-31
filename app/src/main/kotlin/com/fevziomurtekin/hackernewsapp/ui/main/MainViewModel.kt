@@ -47,17 +47,24 @@ class MainViewModel(
         }
     }
 
+    @Synchronized
     fun getItems(mood:Int){
+        /**
+         * Usage BottomBar Click
+         * @params mood.
+         */
+        var list = mutableListOf<ItemModel>()
+
         launch {
-            when (mood) {
+            val list=when (mood) {
                 0 -> itemRepository.getItems(0, idList!!).await()
-                1 -> itemRepository.getItems(0, idList!!).await()
-                2 -> itemRepository.getItems(0, idList!!).await()
-                else -> itemRepository.getItems(0, idList!!).await()
+                1 -> itemRepository.getItems(1, idList!!).await()
+                2 -> itemRepository.getItems(2, idList!!).await()
+                else -> itemRepository.getItems(3, idList!!).await()
             }
+            Timber.d(list.toString())
+            EventBus.getDefault().post(list)
         }
-        Timber.d(items.toString())
-        EventBus.getDefault().post(items)
     }
 
     fun showSplash(view: ConstraintLayout){ view.visibility = View.VISIBLE }

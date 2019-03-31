@@ -33,9 +33,9 @@ class ItemRepositoryImpl(
     override fun getItems(mood: Int,idList: MutableList<Int>): Deferred<MutableList<ItemModel>> = GlobalScope.async {
         when(mood){
             0 -> return@async getNews(idList).await()
-            1 -> return@async getJobs(idList).await()
-            2 -> return@async getTops(idList).await()
-            else -> return@async getAsks(idList).await()
+            1 -> return@async getTops(idList).await()
+            2 -> return@async getAsks(idList).await()
+            else -> return@async getJobs(idList).await()
         }
     }
 

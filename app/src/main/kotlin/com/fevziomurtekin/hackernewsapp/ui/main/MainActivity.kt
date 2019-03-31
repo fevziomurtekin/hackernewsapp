@@ -1,10 +1,12 @@
 package com.fevziomurtekin.hackernewsapp.ui.main
 
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -25,7 +27,8 @@ import org.koin.android.architecture.ext.viewModel
 import timber.log.Timber
 
 
-class MainActivity : AppCompatActivity(),FragmentExt{
+class MainActivity : AppCompatActivity(),FragmentExt, Toolbar.OnMenuItemClickListener {
+
 
     /***
      * @param holderId -> FrameLayout that the fragment will be placed in
@@ -59,6 +62,7 @@ class MainActivity : AppCompatActivity(),FragmentExt{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottomappbar.replaceMenu(R.menu.bottomappbar_menu)
+        bottomappbar.setOnMenuItemClickListener(this)
         //recyclerview.layoutManager = LinearLayoutManager(applicationContext)
 
 
@@ -77,8 +81,7 @@ class MainActivity : AppCompatActivity(),FragmentExt{
         viewModel.getNews()
     }
 
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
         when(item!!.itemId){
             R.id.appbar_user->{
                 //viewModel.getUser
