@@ -74,8 +74,8 @@ class ItemRepositoryImpl(
 
         async { itemDao.saveAll(entityList) }
 
-        Timber.d(itemList.toString())
-        return@async itemList!!
+        //Timber.d(itemList.toString())
+        return@async itemList
     }
 
     @Synchronized
@@ -114,7 +114,7 @@ class ItemRepositoryImpl(
         async { itemDao.saveAll(entityList) }
 
         Timber.d(itemList.toString())
-        return@async itemList!!
+        return@async itemList
     }
 
     @Synchronized
@@ -153,7 +153,7 @@ class ItemRepositoryImpl(
         async { itemDao.saveAll(entityList) }
 
         Timber.d(itemList.toString())
-        return@async itemList!!
+        return@async itemList
     }
 
     @Synchronized
@@ -193,7 +193,7 @@ class ItemRepositoryImpl(
         async { itemDao.saveAll(entityList) }
 
         Timber.d(itemList.toString())
-        return@async itemList!!
+        return@async itemList
     }
 
 

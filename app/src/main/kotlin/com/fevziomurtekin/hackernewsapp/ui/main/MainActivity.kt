@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity(),FragmentExt{
             }
         })
 
-        viewModel.getItems(0)
+        viewModel.getNews()
     }
 
 
