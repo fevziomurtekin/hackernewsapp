@@ -8,7 +8,6 @@ import androidx.room.Query
 @Dao
 interface ItemDao{
 
-
     /**
      * Save all items
      * */

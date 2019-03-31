@@ -74,20 +74,23 @@ class MainActivity : AppCompatActivity(),FragmentExt{
             }
         })
 
-        viewModel.getNews()
+        viewModel.getItems(0)
     }
 
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item!!.itemId){
             R.id.appbar_user->{
-                //viewModel.getUsers()
-            }
-            R.id.appbar_jobs->{
-                //viewModel.getJobs()
+                //viewModel.getUser
+                replaceFragment(true,R.id.framelayout,NewsFragment.newInstance())
             }
             R.id.appbar_ask->{
-                //viewModel.getAsk()
+                viewModel.getItems(2)
+                replaceFragment(true,R.id.framelayout,NewsFragment.newInstance())
+            }
+            R.id.appbar_jobs->{
+                viewModel.getItems(3)
+                replaceFragment(true,R.id.framelayout,NewsFragment.newInstance())
             }
         }
 

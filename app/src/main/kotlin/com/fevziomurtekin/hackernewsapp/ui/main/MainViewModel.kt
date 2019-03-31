@@ -30,6 +30,7 @@ class MainViewModel(
 
     fun getNews(){
         /**
+         * Usage SplashScreen
          * @Default value LoadingEvent
          */
         mEvents.value = LoadingEvent
@@ -44,6 +45,19 @@ class MainViewModel(
                 mEvents.value = FailedEvent(Throwable())
             }
         }
+    }
+
+    fun getItems(mood:Int){
+        launch {
+            when (mood) {
+                0 -> itemRepository.getItems(0, idList!!).await()
+                1 -> itemRepository.getItems(0, idList!!).await()
+                2 -> itemRepository.getItems(0, idList!!).await()
+                else -> itemRepository.getItems(0, idList!!).await()
+            }
+        }
+        Timber.d(items.toString())
+        EventBus.getDefault().post(items)
     }
 
     fun showSplash(view: ConstraintLayout){ view.visibility = View.VISIBLE }
