@@ -53,4 +53,10 @@ ext{
     //Eventbus
     eventbus_version='3.1.1'
 
+    //Firebase
+    firebase_core_version='16.0.8'
+    firebase_messaging_version='17.5.0'
+    firebase_crash_version='16.2.1'
+    firabase_addmob_version='17.2.0'
+
 }

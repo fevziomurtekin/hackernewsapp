@@ -28,6 +28,8 @@ import com.fevziomurtekin.hackernewsapp.util.FragmentExt
 import com.fevziomurtekin.hackernewsapp.util.LoadingEvent
 import com.fevziomurtekin.hackernewsapp.util.SuccessEvent
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crash.FirebaseCrash
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -78,6 +80,13 @@ class MainActivity : AppCompatActivity(),FragmentExt
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        /**
+         * Add to Firebase Analytics.
+         */
+        FirebaseAnalytics.getInstance(this)
+
+
         bottomappbar.replaceMenu(R.menu.bottomappbar_menu)
         bottomappbar.setOnMenuItemClickListener(this)
         btn_search.setOnClickListener(this)
