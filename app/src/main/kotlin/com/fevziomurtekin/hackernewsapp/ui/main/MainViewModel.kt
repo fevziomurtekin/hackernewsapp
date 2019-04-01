@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.view.View
 import android.view.animation.AccelerateInterpolator
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -68,8 +69,28 @@ class MainViewModel(
         }
     }
 
+    fun searchNews(text:String){
+        EventBus.getDefault().post(itemRepository.getNewsBySearch(0,text))
+    }
+
     fun clearAllTables(){
         itemRepository.clearAllTables()
+    }
+
+    fun showEditText(view: EditText){
+        val animator = ObjectAnimator.ofFloat(view,"alpha",0f,1f)
+        animator.interpolator = AccelerateInterpolator()
+
+        animator.duration = 200
+        animator.start()
+    }
+
+    fun hideEditText(view: EditText){
+        val animator = ObjectAnimator.ofFloat(view,"alpha",1f,0f)
+        animator.interpolator = AccelerateInterpolator()
+
+        animator.duration = 200
+        animator.start()
     }
 
     fun showSplash(view: ConstraintLayout){ view.visibility = View.VISIBLE }

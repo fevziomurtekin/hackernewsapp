@@ -17,6 +17,31 @@
             app:layout_constraintLeft_toLeftOf="parent"
     />
 
+    <EditText
+            android:id="@+id/edt_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/bottomappbar_layout"
+            android:padding="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:alpha="0"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="5dp"
+            android:elevation="16dp"
+            android:outlineAmbientShadowColor="@android:color/darker_gray"
+            android:outlineSpotShadowColor="@android:color/darker_gray"
+            android:outlineProvider="background"
+            android:textSize="14sp"
+            android:fontFamily="@font/italic"
+            android:inputType="text"
+            android:textColor="@color/orange"
+            android:imeOptions="actionSearch"
+            android:hint="@string/search_data"
+            android:textColorHint="@color/orange"
+            android:background="@drawable/search_bg"
+            android:lines="1"/>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_height="90dp"
             android:layout_width="match_parent"
@@ -24,6 +49,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+            android:id="@+id/bottomappbar_layout"
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -56,6 +82,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             android:id="@+id/splashscreen">
 
         <ImageView

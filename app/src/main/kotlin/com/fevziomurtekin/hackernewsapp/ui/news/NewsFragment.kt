@@ -16,7 +16,7 @@ import com.fevziomurtekin.hackernewsapp.ui.newdetails.NewsDetailsViewModel
 import com.fevziomurtekin.hackernewsapp.util.IntentArguments
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.naju_fragments.*
+import kotlinx.android.synthetic.main.news_fragment.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -67,7 +67,7 @@ class NewsFragment : Fragment(), NewsAdapter.OnItemClickListener, SwipeRefreshLa
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.naju_fragments,container,false)
+        return inflater.inflate(R.layout.news_fragment,container,false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

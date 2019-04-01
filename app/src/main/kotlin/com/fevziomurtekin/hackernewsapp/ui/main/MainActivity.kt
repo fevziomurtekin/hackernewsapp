@@ -1,10 +1,15 @@
 package com.fevziomurtekin.hackernewsapp.ui.main
 
 import android.os.Bundle
+import android.text.Editable
+import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -18,6 +23,7 @@ import com.fevziomurtekin.hackernewsapp.R
 import com.fevziomurtekin.hackernewsapp.data.domain.ItemModel
 import com.fevziomurtekin.hackernewsapp.ui.adapter.NewsAdapter
 import com.fevziomurtekin.hackernewsapp.ui.news.NewsFragment
+import com.fevziomurtekin.hackernewsapp.util.Ext
 import com.fevziomurtekin.hackernewsapp.util.FragmentExt
 import com.fevziomurtekin.hackernewsapp.util.LoadingEvent
 import com.fevziomurtekin.hackernewsapp.util.SuccessEvent
@@ -31,10 +37,15 @@ import timber.log.Timber
 import kotlin.system.exitProcess
 
 
-class MainActivity : AppCompatActivity(),FragmentExt, Toolbar.OnMenuItemClickListener {
+class MainActivity : AppCompatActivity(),FragmentExt
+    , Toolbar.OnMenuItemClickListener
+    , View.OnClickListener {
+
 
 
     private var onExitCount:Int=0
+
+    private var floatingCount:Int=0
 
     //Declare MainViewModel with Koin and allow constructor di.
     val viewModel by viewModel<MainViewModel> ()
@@ -71,8 +82,21 @@ class MainActivity : AppCompatActivity(),FragmentExt, Toolbar.OnMenuItemClickLis
         setContentView(R.layout.activity_main)
         bottomappbar.replaceMenu(R.menu.bottomappbar_menu)
         bottomappbar.setOnMenuItemClickListener(this)
-        //recyclerview.layoutManager = LinearLayoutManager(applicationContext)
+        btn_search.setOnClickListener(this)
 
+
+        /**
+         * post search value with Eventbus in NewsFragment.
+         * @return MutableList<ItemModel>
+         **/
+        edt_search.setOnEditorActionListener(object: TextView.OnEditorActionListener{
+            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                    searchNews()
+                }
+                return false
+            }
+        })
 
         replaceFragment(false,R.id.framelayout,NewsFragment.newInstance(0))
 
@@ -87,6 +111,13 @@ class MainActivity : AppCompatActivity(),FragmentExt, Toolbar.OnMenuItemClickLis
         })
 
         viewModel.getNews()
+    }
+
+    fun searchNews(){
+        Ext.hideKeyboard(this)
+        floatingCount++
+        viewModel.hideEditText(edt_search)
+        viewModel.searchNews(edt_search.text.toString())
     }
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
@@ -104,8 +135,28 @@ class MainActivity : AppCompatActivity(),FragmentExt, Toolbar.OnMenuItemClickLis
                 replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(3))
             }
         }
-
         return true
+    }
+
+    override fun onClick(v: View?) {
+        when(v!!.id){
+            R.id.btn_search->{
+                searchAnimation()
+            }
+        }
+    }
+
+    private fun searchAnimation() {
+        Ext.hideKeyboard(this)
+        edt_search.apply { setText("") }
+
+        if(floatingCount%2==0){
+            viewModel.showEditText(edt_search)
+        }else{
+            viewModel.hideEditText(edt_search)
+        }
+
+        floatingCount++
     }
 
 
@@ -128,9 +179,10 @@ class MainActivity : AppCompatActivity(),FragmentExt, Toolbar.OnMenuItemClickLis
     }
 
     override fun onBackPressed() {
+
         /**
          *  if Fragment backstackentrycount 1 => NewsFragment.
-          */
+         */
 
         if(supportFragmentManager.backStackEntryCount==1 && onExitCount == 0){
             Toast.makeText(this@MainActivity,getString(R.string.press_back_again),Toast.LENGTH_SHORT).show()

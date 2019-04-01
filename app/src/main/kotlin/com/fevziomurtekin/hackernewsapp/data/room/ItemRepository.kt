@@ -42,6 +42,14 @@ interface ItemRepository{
 
     fun clearAllTables()
 
+
+    /**
+     * @param mood
+     * @param text get search data.
+     * @return MutableList<ItemModel>
+     * */
+    fun getNewsBySearch(mood: Int,text:String):MutableList<ItemModel>
+
 }
 
 /**
@@ -287,6 +295,32 @@ class ItemRepositoryImpl(
             try { itemDao.deleteAllNew() }catch (ignored:Exception){}
             try { itemDao.deleteAllAsk() }catch (ignored:Exception){}
             try { itemDao.deleteAllJob() }catch (ignored:Exception){}
+        }
+    }
+
+
+    override fun getNewsBySearch(mood: Int, text: String): MutableList<ItemModel> {
+        val list = mutableListOf<ItemModel>()
+
+        val entity= when(mood){
+            0-> itemDao.findAllByNews(text).forEach {
+                list.add(ItemModel.fromNews(it))
+            }.let {
+                return list
+            }
+
+            1-> itemDao.findAllByAsks(text).forEach {
+                list.add(ItemModel.fromAsk(it))
+            }.let {
+                return list
+            }
+
+            else -> itemDao.findAllByJobs(text).forEach {
+                list.add(ItemModel.fromJobs(it))
+            }.let {
+                return list
+            }
+
         }
     }
 

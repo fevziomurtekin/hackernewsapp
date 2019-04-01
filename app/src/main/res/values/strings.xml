@@ -8,4 +8,5 @@
     <string name="loading_error">An unexpected error was encountered. Please try again.</string>
     <string name="getnews">Please wait, fetching news ...</string>
     <string name="press_back_again">Press back again to exit.</string>
+    <string name="search_data">Enter to text search of anything</string>
 </resources>
