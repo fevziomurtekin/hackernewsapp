@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -27,9 +28,16 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.koin.android.architecture.ext.viewModel
 import timber.log.Timber
+import kotlin.system.exitProcess
 
 
 class MainActivity : AppCompatActivity(),FragmentExt, Toolbar.OnMenuItemClickListener {
+
+
+    private var onExitCount:Int=0
+
+    //Declare MainViewModel with Koin and allow constructor di.
+    val viewModel by viewModel<MainViewModel> ()
 
 
     /***
@@ -57,8 +65,6 @@ class MainActivity : AppCompatActivity(),FragmentExt, Toolbar.OnMenuItemClickLis
 
     }
 
-    //Declare MainViewModel with Koin and allow constructor di.
-    val viewModel by viewModel<MainViewModel> ()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,6 +125,24 @@ class MainActivity : AppCompatActivity(),FragmentExt, Toolbar.OnMenuItemClickLis
     override fun onDestroy() {
         super.onDestroy()
         viewModel.clearAllTables()
+    }
+
+    override fun onBackPressed() {
+        /**
+         *  if Fragment backstackentrycount 1 => NewsFragment.
+          */
+
+        if(supportFragmentManager.backStackEntryCount==1 && onExitCount == 0){
+            Toast.makeText(this@MainActivity,getString(R.string.press_back_again),Toast.LENGTH_SHORT).show()
+            onExitCount++
+        }else if(supportFragmentManager.backStackEntryCount==1 && onExitCount==1){
+            moveTaskToBack(true)
+            exitProcess(-1)
+            onExitCount=0
+        }else{
+            supportFragmentManager.popBackStack()
+        }
+
     }
 
 
