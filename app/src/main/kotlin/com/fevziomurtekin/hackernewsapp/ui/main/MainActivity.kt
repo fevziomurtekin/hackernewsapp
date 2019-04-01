@@ -41,11 +41,9 @@ class MainActivity : AppCompatActivity(),FragmentExt
     , Toolbar.OnMenuItemClickListener
     , View.OnClickListener {
 
-
-
     private var onExitCount:Int=0
-
     private var floatingCount:Int=0
+    private var mood=0
 
     //Declare MainViewModel with Koin and allow constructor di.
     val viewModel by viewModel<MainViewModel> ()
@@ -117,22 +115,25 @@ class MainActivity : AppCompatActivity(),FragmentExt
         Ext.hideKeyboard(this)
         floatingCount++
         viewModel.hideEditText(edt_search)
-        viewModel.searchNews(edt_search.text.toString())
+        viewModel.searchNews(mood,edt_search.text.toString())
     }
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when(item!!.itemId){
             R.id.appbar_user->{
                 //viewModel.getUser
-                replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(1))
+                mood=1
+                //replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(mood))
             }
             R.id.appbar_ask->{
+                mood=2
                 viewModel.getItems(2,false)
-                replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(2))
+                replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(mood))
             }
             R.id.appbar_jobs->{
+                mood=3
                 viewModel.getItems(3,false)
-                replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(3))
+                replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(mood))
             }
         }
         return true

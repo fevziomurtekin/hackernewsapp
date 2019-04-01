@@ -69,8 +69,8 @@ class MainViewModel(
         }
     }
 
-    fun searchNews(text:String){
-        EventBus.getDefault().post(itemRepository.getNewsBySearch(0,text))
+    fun searchNews(mood: Int,text:String){
+        EventBus.getDefault().post(itemRepository.getNewsBySearch(mood,text))
     }
 
     fun clearAllTables(){
