@@ -9,6 +9,7 @@ import android.widget.RelativeLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LiveData
 import com.fevziomurtekin.hackernewsapp.data.domain.ItemModel
+import com.fevziomurtekin.hackernewsapp.data.room.ItemDao
 import com.fevziomurtekin.hackernewsapp.data.room.ItemRepository
 import com.fevziomurtekin.hackernewsapp.util.*
 import com.fevziomurtekin.util.*
@@ -65,6 +66,10 @@ class MainViewModel(
             Timber.d(list.toString())
             EventBus.getDefault().post(list)
         }
+    }
+
+    fun clearAllTables(){
+        itemRepository.clearAllTables()
     }
 
     fun showSplash(view: ConstraintLayout){ view.visibility = View.VISIBLE }

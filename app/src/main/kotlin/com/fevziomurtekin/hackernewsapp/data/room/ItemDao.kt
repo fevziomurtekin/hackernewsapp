@@ -90,4 +90,25 @@ interface ItemDao{
     @Query("SELECT * FROM ask WHERE id= :id")
     fun findAllByAskId(id: String):AskEntity
 
+    /**
+     * Drop new table
+     */
+    @Query("DELETE FROM new")
+    fun deleteAllNew()
+
+    /**
+     * Drop new ask
+     */
+    @Query("DELETE FROM ask")
+    fun deleteAllAsk()
+
+    /**
+     * Drop new job
+     */
+    @Query("DELETE FROM job")
+    fun deleteAllJob()
+
+
+
+
 }

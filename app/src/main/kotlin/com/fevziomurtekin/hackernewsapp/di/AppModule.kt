@@ -40,7 +40,7 @@ val appModule = applicationContext {
     bean { ApplicationSchedulerProvider() as SchedulerProvider }
 
     // Expose ItemDao directly
-    bean { get<Database>().itemDao() }
+    bean { get<Database>().itemDao() as ItemDao }
 
     // Expose UserDao directly
     bean { get<Database>().userDao() }

@@ -35,6 +35,13 @@ interface ItemRepository{
      **/
     fun getItemByAskId(id:String):Deferred<ItemModel>?
 
+
+    /**
+     * Clear all tables in Room Database.
+     * */
+
+    fun clearAllTables()
+
 }
 
 /**
@@ -273,6 +280,14 @@ class ItemRepositoryImpl(
      */
     override fun getItemByAskId(id: String): Deferred<ItemModel>? = GlobalScope.async {
         ItemModel.fromAsk(itemDao.findAllByAskId(id))
+    }
+
+    override fun clearAllTables() {
+        GlobalScope.launch {
+            try { itemDao.deleteAllNew() }catch (ignored:Exception){}
+            try { itemDao.deleteAllAsk() }catch (ignored:Exception){}
+            try { itemDao.deleteAllJob() }catch (ignored:Exception){}
+        }
     }
 
 

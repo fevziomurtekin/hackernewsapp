@@ -10,7 +10,6 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 /**
 Extracted from MVVM Google Blueprints Project -
-https://github.com/googlesamples/android-architecture/blob/dev-todo-mvvm-live-kotlin/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/SingleLiveEvent.kt
  */
 
 /**

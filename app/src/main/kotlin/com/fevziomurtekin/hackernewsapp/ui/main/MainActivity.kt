@@ -109,16 +109,18 @@ class MainActivity : AppCompatActivity(),FragmentExt, Toolbar.OnMenuItemClickLis
             getString(R.string.loading_error),
             Snackbar.LENGTH_INDEFINITE
         )
-            .setAction(R.string.retry, {
+            .setAction(R.string.retry) {
                 viewModel.getNews()
-            })
+            }
             .show()
     }
 
 
     override fun onDestroy() {
         super.onDestroy()
-        //TODO clear all tables.
+        viewModel.clearAllTables()
     }
+
+
 
 }
