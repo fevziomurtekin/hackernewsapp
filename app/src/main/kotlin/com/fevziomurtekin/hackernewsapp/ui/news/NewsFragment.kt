@@ -48,6 +48,7 @@ class NewsFragment : Fragment(), NewsAdapter.OnItemClickListener, SwipeRefreshLa
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEventItems(items : MutableList<ItemModel>){
         Timber.d("${items.toString()}")
+        swipe_refresh.isRefreshing=false
         recyclerview.adapter = NewsAdapter(context!!,items,onItemClick)
         progressbars.hide()
 
@@ -59,6 +60,7 @@ class NewsFragment : Fragment(), NewsAdapter.OnItemClickListener, SwipeRefreshLa
 
     override fun onItemClick(item: ItemModel) {
         Timber.d("${item.text}")
+        swipe_refresh.isRefreshing=false
         (activity as MainActivity).replaceFragment(true,R.id.framelayout,NewDetailsFragment.newInstance(item))
     }
 
@@ -70,10 +72,11 @@ class NewsFragment : Fragment(), NewsAdapter.OnItemClickListener, SwipeRefreshLa
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        if (arguments!=null)
+            mood = arguments!!.getInt(IntentArguments.ARG_INTENT_ID)
         progressbars.show()
         onItemClick = this
         swipe_refresh.setOnRefreshListener(this)
-        if (arguments!=null) mood = arguments!!.getInt(IntentArguments.ARG_INTENT_ID)
 
     }
 
@@ -83,8 +86,7 @@ class NewsFragment : Fragment(), NewsAdapter.OnItemClickListener, SwipeRefreshLa
      * swipeRefreshLayout swipe false.
      */
     override fun onRefresh() {
-        (activity as MainActivity).viewModel.getItems(mood,true)
-        swipe_refresh.isRefreshing=false
+       EventBus.getDefault().post((activity as MainActivity).viewModel.getItems(mood,true))
     }
 
 
@@ -92,9 +94,11 @@ class NewsFragment : Fragment(), NewsAdapter.OnItemClickListener, SwipeRefreshLa
     companion object {
 
         fun newInstance(mood:Int) : NewsFragment {
+            val fragment = NewsFragment()
             val args = Bundle()
             args.putInt(IntentArguments.ARG_INTENT_ID,mood)
-            return NewsFragment()
+            fragment.arguments = args
+            return fragment
         }
 
     }

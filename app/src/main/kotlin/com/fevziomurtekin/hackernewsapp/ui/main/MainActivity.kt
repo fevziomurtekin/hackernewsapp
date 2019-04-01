@@ -11,6 +11,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Database
+import androidx.room.RoomDatabase
 import com.fevziomurtekin.hackernewsapp.R
 import com.fevziomurtekin.hackernewsapp.data.domain.ItemModel
 import com.fevziomurtekin.hackernewsapp.ui.adapter.NewsAdapter
@@ -111,6 +113,12 @@ class MainActivity : AppCompatActivity(),FragmentExt, Toolbar.OnMenuItemClickLis
                 viewModel.getNews()
             })
             .show()
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        //TODO clear all tables.
     }
 
 }
