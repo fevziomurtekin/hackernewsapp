@@ -40,7 +40,6 @@ import kotlin.system.exitProcess
 
 
 class MainActivity : AppCompatActivity(),FragmentExt
-    , Toolbar.OnMenuItemClickListener
     , View.OnClickListener {
 
     private var onExitCount:Int=0
@@ -88,8 +87,11 @@ class MainActivity : AppCompatActivity(),FragmentExt
 
 
         bottomappbar.replaceMenu(R.menu.bottomappbar_menu)
-        bottomappbar.setOnMenuItemClickListener(this)
         btn_search.setOnClickListener(this)
+
+
+        //bottom app bar support.
+        setSupportActionBar(bottomappbar)
 
 
         /**
@@ -120,6 +122,12 @@ class MainActivity : AppCompatActivity(),FragmentExt
         viewModel.getNews()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.bottomappbar_menu, menu)
+        return true
+    }
+
     fun searchNews(){
         Ext.hideKeyboard(this)
         floatingCount++
@@ -127,8 +135,13 @@ class MainActivity : AppCompatActivity(),FragmentExt
         viewModel.searchNews(mood,edt_search.text.toString())
     }
 
-    override fun onMenuItemClick(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item!!.itemId){
+            android.R.id.home->{
+                mood=0
+                viewModel.getItems(0,false)
+                replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(mood))
+            }
             R.id.appbar_user->{
                 //viewModel.getUser
                 mood=1
