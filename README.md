@@ -1,6 +1,9 @@
 # Hackernews app
 
-This application written Kotlin. Used API <a href="https://github.com/HackerNews/API">HackerNewsAPI</a>. 
+This application sample The Hackernews app that implements MVVM architecture using Koin, Room, Coroutines, Retrofit and Eventbus. <br><br>
+
+Used <a href="https://github.com/HackerNews/API">HackerNewsAPI</a>. <br><br>
+
 
 
 <h2> Architecture</h2>
