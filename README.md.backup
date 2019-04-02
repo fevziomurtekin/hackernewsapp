@@ -1,13 +1,15 @@
 # Hackernews app
 
-This application sample Hackernews app that implements MVVM architecture using Koin, Room, Coroutines, Retrofit and Eventbus. <br><br>
-Used <a href="https://github.com/HackerNews/API">HackerNewsAPI</a>. 
+This application sample The Hackernews app that implements MVVM architecture using Koin, Room, Coroutines, Retrofit and Eventbus. <br><br>
+
+Used <a href="https://github.com/HackerNews/API">HackerNewsAPI</a>. <br><br>
+
 
 
 <h2> Architecture</h2>
 
 <center>
-<img align="center" src="screenshot/mvvm.png" width="375" height="450" />
+<img align="center" src="screenshot/mvvm.png" width="450" height="480" />
 </p>
 </center>
 
