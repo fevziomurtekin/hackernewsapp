@@ -301,21 +301,22 @@ class ItemRepositoryImpl(
 
     override fun getNewsBySearch(mood: Int, text: String): MutableList<ItemModel> {
         val list = mutableListOf<ItemModel>()
+        val key  = "%$text%"
 
         val entity= when(mood){
-            0-> itemDao.findAllByNews(text).forEach {
+            0-> itemDao.findAllByNews(key).forEach {
                 list.add(ItemModel.fromNews(it))
             }.let {
                 return list
             }
 
-            1-> itemDao.findAllByAsks(text).forEach {
+            1-> itemDao.findAllByAsks(key).forEach {
                 list.add(ItemModel.fromAsk(it))
             }.let {
                 return list
             }
 
-            else -> itemDao.findAllByJobs(text).forEach {
+            else -> itemDao.findAllByJobs(key).forEach {
                 list.add(ItemModel.fromJobs(it))
             }.let {
                 return list
