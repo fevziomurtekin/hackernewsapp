@@ -1,19 +1,24 @@
 package com.fevziomurtekin.hackernewsapp.ui.main
 
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import androidx.appcompat.view.menu.MenuBuilder
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LiveData
+import com.fevziomurtekin.hackernewsapp.R
 import com.fevziomurtekin.hackernewsapp.data.domain.ItemModel
 import com.fevziomurtekin.hackernewsapp.data.room.ItemDao
 import com.fevziomurtekin.hackernewsapp.data.room.ItemRepository
 import com.fevziomurtekin.hackernewsapp.util.*
 import com.fevziomurtekin.util.*
+import com.google.android.material.bottomappbar.BottomAppBar
 import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
 
@@ -75,6 +80,14 @@ class MainViewModel(
 
     fun clearAllTables(){
         itemRepository.clearAllTables()
+    }
+
+    @SuppressLint("RestrictedApi")
+    fun unCheckedViews(bottomAppBar: BottomAppBar){
+        bottomAppBar.navigationIcon!!.setTint(Color.parseColor("#FFC768"))
+        (bottomAppBar.menu as MenuBuilder).actionItems.forEach {
+            it.icon.setTint(Color.parseColor("#FFC768"))
+        }
     }
 
     fun showEditText(view: EditText){

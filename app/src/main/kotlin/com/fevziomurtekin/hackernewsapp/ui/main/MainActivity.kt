@@ -1,5 +1,6 @@
 package com.fevziomurtekin.hackernewsapp.ui.main
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.view.KeyEvent
@@ -12,6 +13,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -93,6 +95,9 @@ class MainActivity : AppCompatActivity(),FragmentExt
         //bottom app bar support.
         setSupportActionBar(bottomappbar)
 
+        //default selected item news.
+        viewModel.unCheckedViews(bottomappbar)
+        bottomappbar.navigationIcon!!.setTint(Color.WHITE)
 
         /**
          * post search value with Eventbus in NewsFragment.
@@ -136,23 +141,31 @@ class MainActivity : AppCompatActivity(),FragmentExt
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        viewModel.unCheckedViews(bottomappbar)
+
+
         when(item!!.itemId){
             android.R.id.home->{
+                bottomappbar.navigationIcon!!.setTint(Color.WHITE)
                 mood=0
                 viewModel.getItems(0,false)
                 replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(mood))
             }
             R.id.appbar_user->{
+                item!!.icon.setTint(Color.WHITE)
                 //viewModel.getUser
                 mood=1
                 //replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(mood))
             }
             R.id.appbar_ask->{
+                item!!.icon.setTint(Color.WHITE)
                 mood=2
                 viewModel.getItems(2,false)
                 replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(mood))
             }
             R.id.appbar_jobs->{
+                item!!.icon.setTint(Color.WHITE)
                 mood=3
                 viewModel.getItems(3,false)
                 replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(mood))
