@@ -54,6 +54,8 @@ class MainViewModel(
         }
     }
 
+    data class MainViewState (val item : ItemModel) : Event()
+
     @Synchronized
     fun getItems(mood:Int,isReload:Boolean){
         /**
