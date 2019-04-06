@@ -18,7 +18,7 @@ Used <a href="https://github.com/HackerNews/API">HackerNewsAPI</a>. <br><br>
 
 - Kotlin
 - MVVM
-- İnsert-Koin
+- Koin
 - Kotlin Coroutines
 - Retrofit2
 - Room
