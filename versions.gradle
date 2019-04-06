@@ -59,6 +59,7 @@ ext{
     firebase_crash_version='16.2.1'
     firabase_addmob_version='17.2.0'
 
-    //Robolectric
-    robolectric_version='4.1'
+    //Test
+    junit_version = "4.12"
+    mockito_version = "2.8.47"
 }
