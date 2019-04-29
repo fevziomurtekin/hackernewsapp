@@ -58,4 +58,5 @@ Used <a href="https://github.com/HackerNews/API">HackerNewsAPI</a>. <br><br>
 
 - [ ] User information to be added.
 - [ ] User post to be added. 
-- [ ] The app will be written in unit test.
+- [x] The app will be written in unit test.
+- [ ] Kotlin-Dsl implementation in project.
