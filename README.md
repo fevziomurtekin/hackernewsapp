@@ -11,6 +11,7 @@ Used <a href="https://github.com/HackerNews/API">HackerNewsAPI</a>. <br><br>
 </p>
 </center>
 <H2>Used Libraries</H2>
+
 - Kotlin
 - MVVM
 - Koin
