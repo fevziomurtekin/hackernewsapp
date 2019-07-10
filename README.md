@@ -1,6 +1,7 @@
 # Hackernews app
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/773fe0ac63214e149f7e3494f2c90d2f)](https://app.codacy.com/app/fevziomurtekin/hackernewsapp?utm_source=github.com&utm_medium=referral&utm_content=fevziomurtekin/hackernewsapp&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/773fe0ac63214e149f7e3494f2c90d2f)](https://app.codacy.com/app/fevziomurtekin/hackernewsapp?utm_source=github.com&utm_medium=referral&utm_content=fevziomurtekin/hackernewsapp&utm_campaign=Badge_Grade_Dashboard)
 
 This application sample The Hackernews app that implements MVVM architecture using Koin, Room, Coroutines, Retrofit and Eventbus. <br><br>
 
