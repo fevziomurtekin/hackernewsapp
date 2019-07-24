@@ -47,6 +47,7 @@ Used <a href="https://github.com/HackerNews/API">HackerNewsAPI</a>. <br><br>
 </table>
 
 <h2> Todo List </h2>
+
 - [ ] User information to be added.
 - [ ] User post to be added. 
 - [x] The app will be written in unit test.
