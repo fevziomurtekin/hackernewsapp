@@ -1,8 +1,10 @@
 package com.fevziomurtekin.hackernewsapp.ui.main
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
+import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
@@ -18,6 +20,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -25,10 +28,7 @@ import com.fevziomurtekin.hackernewsapp.R
 import com.fevziomurtekin.hackernewsapp.data.domain.ItemModel
 import com.fevziomurtekin.hackernewsapp.ui.adapter.NewsAdapter
 import com.fevziomurtekin.hackernewsapp.ui.news.NewsFragment
-import com.fevziomurtekin.hackernewsapp.util.Ext
-import com.fevziomurtekin.hackernewsapp.util.FragmentExt
-import com.fevziomurtekin.hackernewsapp.util.LoadingEvent
-import com.fevziomurtekin.hackernewsapp.util.SuccessEvent
+import com.fevziomurtekin.hackernewsapp.util.*
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crash.FirebaseCrash
@@ -36,12 +36,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.jetbrains.anko.bundleOf
 import org.koin.android.architecture.ext.viewModel
 import timber.log.Timber
 import kotlin.system.exitProcess
 
 
-class MainActivity : AppCompatActivity(),FragmentExt
+class MainActivity : AppCompatActivity()
     , View.OnClickListener {
 
     private var onExitCount:Int=0
@@ -50,32 +51,6 @@ class MainActivity : AppCompatActivity(),FragmentExt
 
     //Declare MainViewModel with Koin and allow constructor di.
     val viewModel by viewModel<MainViewModel> ()
-
-
-    /***
-     * @param holderId -> FrameLayout that the fragment will be placed in
-     * @param fragment -> Fragment instance
-     * @param retain -> Whether or not previous fragment will be destroyed of will retain its state
-     */
-
-    override fun replaceFragment(retain: Boolean, holderId: Int,fragment:Fragment) {
-        if (retain) {
-            supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(R.anim.slide_in_rigth,R.anim.slide_out_left,R.anim.slide_in_left,R.anim.slide_out_right)
-                .add(holderId,fragment,fragment.javaClass.simpleName)
-                .addToBackStack(fragment.javaClass.simpleName)
-                .commit();
-        } else {
-            supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(R.anim.slide_in_rigth,R.anim.slide_out_left,R.anim.slide_in_left,R.anim.slide_out_right)
-                .replace(holderId,fragment,fragment.javaClass.simpleName)
-                .addToBackStack(fragment.javaClass.simpleName)
-                .commit()
-        }
-
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,16 +78,13 @@ class MainActivity : AppCompatActivity(),FragmentExt
          * post search value with Eventbus in NewsFragment.
          * @return MutableList<ItemModel>
          **/
-        edt_search.setOnEditorActionListener(object: TextView.OnEditorActionListener{
-            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH){
-                    searchNews()
-                }
-                return false
+        edt_search.setOnEditorActionListener { v, actionId, event ->
+            if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                searchNews()
             }
-        })
+            false
+        }
 
-        replaceFragment(false,R.id.framelayout,NewsFragment.newInstance(0))
 
         viewModel.events.observe(this, Observer {
             it?.let {
@@ -150,25 +122,25 @@ class MainActivity : AppCompatActivity(),FragmentExt
                 bottomappbar.navigationIcon!!.setTint(Color.WHITE)
                 mood=0
                 viewModel.getItems(0,false)
-                replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(mood))
+                Navigation.findNavController(default_fragment.view!!).navigate(R.id.action_news, bundleOf(IntentArguments.ARG_INTENT_ID to mood))
             }
             R.id.appbar_user->{
                 item!!.icon.setTint(Color.WHITE)
                 //viewModel.getUser
                 mood=1
-                //replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(mood))
             }
             R.id.appbar_ask->{
                 item!!.icon.setTint(Color.WHITE)
                 mood=2
                 viewModel.getItems(2,false)
-                replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(mood))
+                Navigation.findNavController(default_fragment.view!!).navigate(R.id.action_news, bundleOf(IntentArguments.ARG_INTENT_ID to mood))
+
             }
             R.id.appbar_jobs->{
                 item!!.icon.setTint(Color.WHITE)
                 mood=3
                 viewModel.getItems(3,false)
-                replaceFragment(true,R.id.framelayout,NewsFragment.newInstance(mood))
+                Navigation.findNavController(default_fragment.view!!).navigate(R.id.action_news, bundleOf(IntentArguments.ARG_INTENT_ID to mood))
             }
         }
         return true

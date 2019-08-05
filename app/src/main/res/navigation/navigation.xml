@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/navigation"
+            app:startDestination="@id/news"
+>
+
+    <fragment
+            android:id="@+id/news"
+            android:name="com.fevziomurtekin.hackernewsapp.ui.news.NewsFragment"
+            tools:layout="@layout/news_fragment">
+
+        <action
+                android:id="@+id/action_news"
+                app:destination="@+id/news"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_in_rigth"
+                app:enterAnim="@anim/slide_in_rigth"
+                app:exitAnim="@anim/slide_in_left"
+
+        />
+
+        <action
+            android:id="@+id/action_newsdetails"
+            app:destination="@+id/news_details"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_in_rigth"
+            app:enterAnim="@anim/slide_in_rigth"
+            app:exitAnim="@anim/slide_in_left"
+        />
+
+    </fragment>
+
+    <fragment
+            android:id="@+id/news_details"
+            android:name="com.fevziomurtekin.hackernewsapp.ui.newdetails.NewDetailsFragment"
+            tools:layout="@layout/newsdetails"/>
+
+</navigation>

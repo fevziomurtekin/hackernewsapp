@@ -29,8 +29,7 @@ class NewDetailsFragment: Fragment(){
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.loadWebView(webview,
-            Gson().fromJson(arguments!!.getString(IntentArguments.ARG_INTENT_ID),ItemModel::class.java))
+        viewModel.loadWebView(webview,arguments!!.getParcelable<ItemModel>(IntentArguments.ARG_INTENT_ID))
 
         webview.webViewClient = MyClient(progressbarw)
     }
@@ -39,7 +38,7 @@ class NewDetailsFragment: Fragment(){
 
 
 
-    companion object {
+    /*companion object {
         fun newInstance(item:ItemModel?): NewDetailsFragment{
             val args = Bundle()
             args.putString(IntentArguments.ARG_INTENT_ID,GsonBuilder().create().toJson(item))
@@ -48,7 +47,7 @@ class NewDetailsFragment: Fragment(){
             return fragment
 
         }
-    }
+    }*/
 }
 
 class MyClient: WebViewClient{

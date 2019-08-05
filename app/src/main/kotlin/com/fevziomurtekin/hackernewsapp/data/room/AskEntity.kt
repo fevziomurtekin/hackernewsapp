@@ -1,9 +1,12 @@
 package com.fevziomurtekin.hackernewsapp.data.room
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.fevziomurtekin.hackernewsapp.data.domain.ItemModel
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "ask")
 data class AskEntity(
     @PrimaryKey
@@ -22,7 +25,7 @@ data class AskEntity(
     val parent:MutableList<Int>?=null,
     val poll:Int?,
     val url:String?
-){
+):Parcelable{
     companion object {
         fun from(item: ItemModel)=AskEntity(
             item.id,

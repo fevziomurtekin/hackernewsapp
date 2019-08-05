@@ -18,6 +18,7 @@ Used <a href="https://github.com/HackerNews/API">HackerNewsAPI</a>. <br><br>
 - Kotlin Coroutines
 - Retrofit2
 - Room
+- Navigation
 - Timber
 - Eventbus
 

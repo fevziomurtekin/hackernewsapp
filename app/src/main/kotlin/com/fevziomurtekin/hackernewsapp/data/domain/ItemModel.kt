@@ -1,9 +1,12 @@
 package com.fevziomurtekin.hackernewsapp.data.domain
 
+import android.os.Parcelable
 import com.fevziomurtekin.hackernewsapp.data.room.AskEntity
 import com.fevziomurtekin.hackernewsapp.data.room.JobEntity
 import com.fevziomurtekin.hackernewsapp.data.room.NewEntity
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class ItemModel(
     var id:Int?,
     var by:String?,
@@ -20,7 +23,7 @@ data class ItemModel(
     var parent:MutableList<Int>?=null,
     var poll:Int?,
     var url:String?
-){
+):Parcelable{
     companion object {
         fun fromNews(item: NewEntity)= ItemModel(
             item.id,

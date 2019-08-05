@@ -118,6 +118,8 @@ dependencies {
     testImplementation "org.mockito:mockito-core:$mockito_version"
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestUtil 'com.android.support.test:orchestrator:1.0.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.0.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.0.0'
 }
 kapt {
     generateStubs = true

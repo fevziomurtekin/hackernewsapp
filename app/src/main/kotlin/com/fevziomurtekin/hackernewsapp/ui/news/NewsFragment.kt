@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.fevziomurtekin.hackernewsapp.R
 import com.fevziomurtekin.hackernewsapp.data.domain.ItemModel
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.news_fragment.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.jetbrains.anko.bundleOf
 import org.koin.android.architecture.ext.viewModel
 import timber.log.Timber
 
@@ -61,12 +63,14 @@ class NewsFragment : Fragment(), NewsAdapter.OnItemClickListener, SwipeRefreshLa
     override fun onItemClick(item: ItemModel) {
         Timber.d("${item.text}")
         swipe_refresh.isRefreshing=false
-        (activity as MainActivity).replaceFragment(true,R.id.framelayout,NewDetailsFragment.newInstance(item))
+        Navigation.findNavController((activity as MainActivity).default_fragment.view!!)
+            .navigate(R.id.action_newsdetails, bundleOf(IntentArguments.ARG_INTENT_ID to item))
     }
 
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         return inflater.inflate(R.layout.news_fragment,container,false)
     }
 
@@ -91,7 +95,7 @@ class NewsFragment : Fragment(), NewsAdapter.OnItemClickListener, SwipeRefreshLa
 
 
 
-    companion object {
+    /*companion object {
 
         fun newInstance(mood:Int) : NewsFragment {
             val fragment = NewsFragment()
@@ -101,5 +105,5 @@ class NewsFragment : Fragment(), NewsAdapter.OnItemClickListener, SwipeRefreshLa
             return fragment
         }
 
-    }
+    }*/
 }
