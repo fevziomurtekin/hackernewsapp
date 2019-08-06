@@ -10,7 +10,8 @@ Used <a href="https://github.com/HackerNews/API">HackerNewsAPI</a>. <br><br>
 <img align="center" src="screenshot/mvvm.png" width="640" height="480" />
 </p>
 </center>
-<H2>Used Libraries</H2>
+
+<H2>Tech Stack</H2>
 
 - Kotlin
 - MVVM
@@ -52,4 +53,3 @@ Used <a href="https://github.com/HackerNews/API">HackerNewsAPI</a>. <br><br>
 - [ ] User information to be added.
 - [ ] User post to be added. 
 - [x] The app will be written in unit test.
-- [ ] Kotlin-Dsl implementation in project.
