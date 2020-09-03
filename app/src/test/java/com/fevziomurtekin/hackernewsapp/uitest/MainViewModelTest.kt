@@ -14,6 +14,7 @@ import org.mockito.MockitoAnnotations
 
 class MainViewModelTest{
 
+    
     lateinit var mainViewModel: MainViewModel
 
     @Mock
@@ -31,7 +32,6 @@ class MainViewModelTest{
         MockitoAnnotations.initMocks(this)
 
         mainViewModel =  MainViewModel(repository,ApplicationSchedulerProvider())
-        mainViewModel.events.observeForever(view)
 
     }
 }
