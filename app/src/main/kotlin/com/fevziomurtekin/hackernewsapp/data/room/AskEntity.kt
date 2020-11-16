@@ -8,8 +8,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Entity(tableName = "ask")
-data class AskEntity(
-    @PrimaryKey
+class AskEntity(
+    @PrimaryKey(autoGenerate = true)
     val id:Int?,
     val by:String?,
     val descendants:Int??,
